@@ -7,7 +7,7 @@ export const DEFAULT_ACTIONS: (TimeBasedAction | CounterBasedAction)[] = [
     activityId: 'SLEEP',
     time: new Date().setHours(8, 0, 0, 0),
     dayId: generateDayIdToday(),
-    timeDone: 1000*60*60* 2
+    timeDone: 120
   },
   {
     id: 'DEFAULT_ACTION_POOP',

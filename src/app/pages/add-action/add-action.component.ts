@@ -22,8 +22,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { v4 as uuidv4 } from 'uuid';
 import { generateDayIdToday } from "../../shared/utils/generate-day-id-today.func";
 import { AsyncPipe, NgIf } from "@angular/common";
-import { group } from "@angular/animations";
-
 
 @Component({
   selector: 'app-add-action',
