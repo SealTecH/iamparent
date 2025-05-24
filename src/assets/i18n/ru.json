@@ -1,0 +1,25 @@
+{
+  "HOME": {
+    "TITLE": "Дела на день",
+    "ADD": "Добавить событие"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "TRACKED_ACTIVITIES": "Tracked Activities",
+    "ADD_CUSTOM": "Add Custom Activity"
+  },
+  "DEFAULT_ACTIVITIES": {
+    "SLEEP": "Сон",
+    "POOP": "Туалет"
+  },
+  "ADD_ACTION": {
+    "TITLE": "Добавить событие",
+    "EVENT_OCCURRED_TIMES": "Событие произошло раз:",
+    "EVENT_LASTED": "Длилось минут:"
+  },
+  "SHARED": {
+    "LOADING": "Загрузка...",
+    "SAVE": "Сохранить",
+    "MINUTES": "Минут"
+  }
+}

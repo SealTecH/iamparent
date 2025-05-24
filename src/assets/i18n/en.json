@@ -1,0 +1,25 @@
+{
+  "HOME": {
+    "TITLE": "Today's Activities",
+    "ADD": "Add Action"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "TRACKED_ACTIVITIES": "Tracked Activities",
+    "ADD_CUSTOM": "Add Custom Activity"
+  },
+  "DEFAULT_ACTIVITIES": {
+    "SLEEP": "Sleep",
+    "POOP": "Poop"
+  },
+  "ADD_ACTION": {
+    "TITLE": "Add Action",
+    "EVENT_OCCURRED_TIMES": "Event occurred times:",
+    "EVENT_LASTED": "Event lasted minutes:"
+  },
+  "SHARED": {
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "MINUTES": "Mins"
+  }
+}

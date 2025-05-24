@@ -1,0 +1,82 @@
+:host {
+  padding: 5px;
+}
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.activities-list {
+  max-height: 50vw;
+}
+.timeline-container {
+  position: relative;
+  margin-left: 20px;
+  padding-top: 10px;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ion-color-medium);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--ion-color-primary);
+  border-radius: 50%;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.timeline-content {
+  margin-left: 20px;
+  background: var(--ion-color-light);
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.time {
+  font-size: 0.8em;
+  color: var(--ion-color-medium);
+}
+
+.details {
+  margin-top: 10px;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.activity-name-container {
+  display: flex;
+}
+.activity-name {
+  flex-grow: 2;
+  max-width: 70%;
+  padding-right: 5px;
+}
+.done-progress {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  max-width: 400px;
+  width: 250px;
+}

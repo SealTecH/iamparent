@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Сегодня</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/calendar']">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page-container">
+  <h3 class="pl-16">{{'HOME.TITLE' | translate }}</h3>
+  <ion-list class="activities-list" [inset]="true">
+    @for (activity of (activities$ | async); track activity.id)
+    {
+     <ion-item>
+       <ion-icon [name]="activity.icon" slot="start"></ion-icon>
+       <ion-label class="activity-name-container">
+          <div class="activity-name">
+            {{activity.name | translate }}
+          </div>
+         <div class="done-progress">
+           <ion-progress-bar [color]="getPercentDone(activity) >=1 ? 'success': 'primary'"   [value]="getPercentDone(activity)"></ion-progress-bar>
+         </div>
+       </ion-label>
+     </ion-item>
+    }
+  </ion-list>
+  <div>
+    <ion-button expand="block"  [routerLink]="['/add-action']"  >
+      <ion-icon [name]="'add-outline'" ></ion-icon>
+      {{'HOME.ADD' | translate }}
+    </ion-button>
+
+  </div>
+
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    @for (action of (timeline$ | async); track action.id){
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+
+          <div class="details">
+            <div>
+              <div class="time">{{ formatTime(action.time) }}</div>
+              <div>
+                <ion-icon [name]="action.activity!.icon"></ion-icon>
+                {{ action.activity!.name | translate }}
+                <span *ngIf="isTimeBasedAction(action)"> ({{ getDuration(action) + ' '+('SHARED.MINUTES' |translate) }} )</span>
+              </div>
+            </div>
+            <ion-button  fill="outline" (click)="openEdit(action.id)">
+              <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
+            </ion-button>
+            <ion-button  fill="outline" (click)="deleteAction(action.id)">
+              <ion-icon slot="icon-only" size="small"  name="thash"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</ion-content>
+
