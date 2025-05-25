@@ -6,14 +6,16 @@ export const DEFAULT_ACTIVITIES:(TimeBasedActivity | CounterBasedActivity)[] = [
     name: 'DEFAULT_ACTIVITIES.SLEEP',
     description: '',
     icon:'moon-outline',
-    recommendedTime: 60* 16 // 16 hours
+    recommendedTime: 60* 16, // 16 hours
+    isFavorite: true
   },
   {
     id: 'POOP',
     name: 'DEFAULT_ACTIVITIES.POOP',
     description: '',
     icon: 'prism-outline',
-    recommendedAmount: 1
+    recommendedAmount: 1,
+    isFavorite: true
   },
 
 ]

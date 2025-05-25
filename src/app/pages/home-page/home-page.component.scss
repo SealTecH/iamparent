@@ -1,5 +1,6 @@
 :host {
   padding: 5px;
+  max-height: calc(100vh - 20px);
 }
 .home-page-container {
   display: flex;
@@ -7,7 +8,7 @@
 }
 
 .activities-list {
-  max-height: 30vw;
+  max-height: 30%;
   overflow: auto;
 }
 .timeline-container {
@@ -16,7 +17,9 @@
   padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
-  max-height: 50vh;
+  max-height: 55%;
+  margin-inline-end: 16px;
+  margin-inline-start: 16px;;
 }
 
 .timeline-line {
@@ -75,12 +78,9 @@
   padding-right: 5px;
 }
 .done-progress {
-  flex-grow: 1;
   display: flex;
   align-items: center;
-  min-width: 200px;
-  max-width: 400px;
-  width: 250px;
+  width: 80px;
 }
 .left-container {
   display: flex;

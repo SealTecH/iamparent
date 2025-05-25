@@ -92,6 +92,10 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  public toggleFavorite(activity: (TimeBasedActivity | CounterBasedActivity)){
+    this.service.toggleFavorite(activity)
+  }
+
   ngOnDestroy(){
     this.activitiesService.loadActivities().subscribe()
   }

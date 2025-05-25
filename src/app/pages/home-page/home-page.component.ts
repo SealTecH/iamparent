@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import {
-  Action,
+  Action, Activity,
   CounterBasedAction,
   CounterBasedActivity,
   TimeBasedAction,
@@ -16,6 +16,7 @@ import { AddActionComponent } from "../../modals/add-action/add-action.component
 import { Dialog } from '@capacitor/dialog';
 import { TranslatePipe } from "@ngx-translate/core";
 import { SelectedDateService } from "../../services/selected-date.service";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'home-page',
@@ -26,7 +27,10 @@ import { SelectedDateService } from "../../services/selected-date.service";
   standalone: false,
 })
 export class HomePageComponent extends DestroyObserver implements OnInit, OnDestroy  {
-  public readonly activities$ = this.service.activitiesWithTimeDone$;
+  public readonly activities$ = this.service.activitiesWithTimeDone$.pipe(
+    map(activities => {
+      return activities.filter(activity=> activity.isFavorite)
+    }));
   public readonly loading$ = this.service.loading$;
   public readonly timeline$ = this.service.timeline$.pipe(tap(r=>console.log(r)));
 
@@ -45,20 +49,28 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     this.service.init();
   }
 
-  public isTimeBasedAction(action: Action):boolean {
-     return !isNil((action as TimeBasedAction).timeDone)
+  public isTimeBasedActivity(activity: Activity):boolean {
+     return !isNil((activity as TimeBasedActivity).recommendedTime)
   }
 
-  getDetails(action: Action): string {
+  public getSuffix(activity: Activity): string {
+      return  this.translatePipe.transform(this.isTimeBasedActivity(activity) ? 'SHARED.MINUTES': 'HOME.TIMES' )
+  }
+
+  public getDetails(action: Action): string {
     if((action as TimeBasedAction).timeDone){
       return  `${this.getDuration(action)} ${this.translatePipe.transform('SHARED.MINUTES')}`
     }
     return `${(action as CounterBasedAction).countDone} ${this.translatePipe.transform('HOME.TIMES')}`
-
   }
 
   formatTime(timestamp: number): string {
     const date = new Date(timestamp);
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: false });
+  }
+
+  getEndTime(action:Action): string {
+    const date = new Date(action.time + ((action as TimeBasedAction).timeDone*60*1000));
     return date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: false });
   }
 
@@ -97,9 +109,12 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     return (action as TimeBasedAction).timeDone
   }
 
-  async openAddActionModal()  {
+  async openAddActionModal(activityId?: string)  {
     const modal = await this.modalCtrl.create({
       component: AddActionComponent,
+      componentProps: {
+        activityId
+      },
       showBackdrop: true,
       backdropDismiss: false,
 
@@ -131,6 +146,10 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
 
   async openSettings(){
 
+  }
+
+  async copyToClipboard(){
+    await this.service.createCopyToClipboard();
   }
 
   openActivities(){

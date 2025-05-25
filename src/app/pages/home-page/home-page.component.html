@@ -5,6 +5,9 @@
       <ion-button (click)="openActivities()">
         <ion-icon [name]="'star-outline'" ></ion-icon>
       </ion-button>
+      <ion-button (click)="copyToClipboard()">
+        <ion-icon [name]="'copy-outline'" ></ion-icon>
+      </ion-button>
 
       <ion-button (click)="openSettings()">
         <ion-icon [name]="'cog-outline'" ></ion-icon>
@@ -23,11 +26,11 @@
   <ion-list class="activities-list" [inset]="true">
     @for (activity of (activities$ | async); track activity.id)
     {
-     <ion-item>
+     <ion-item (click)="openAddActionModal(activity.id)">
        <ion-icon [name]="activity.icon" slot="start"></ion-icon>
        <ion-label class="activity-name-container">
           <div class="activity-name">
-            {{activity.name | translate }}
+            {{activity.name | translate }} ({{activity.currentDone}} {{getSuffix(activity)}})
           </div>
          <div class="done-progress">
            <ion-progress-bar [color]="getPercentDone(activity) >=1 ? 'success': 'primary'"   [value]="getPercentDone(activity)"></ion-progress-bar>
@@ -53,7 +56,12 @@
 
           <div class="details">
             <div class="left-container">
-              <div class="time">{{ formatTime(action.time) }}</div>
+              <div class="time">
+                {{ formatTime(action.time) }}
+                <ng-container *ngIf="getDuration(action)">
+                  {{getEndTime(action)}}
+                </ng-container>
+              </div>
               <div>
                 <ion-icon [name]="action.activity!.icon"></ion-icon>
                 {{ action.activity!.name | translate }}

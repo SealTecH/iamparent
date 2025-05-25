@@ -49,6 +49,18 @@ export class ActivitiesPageService {
     })
   }
 
+  public toggleFavorite(activity: (TimeBasedActivity | CounterBasedActivity)): void {
+    this.loading$.next(true)
+    this.dataService.updateActivity({...activity, isFavorite: !activity.isFavorite}).pipe(
+      take(1),
+      finalize(() => {
+        this.loading$.next(false)
+      })
+    ).subscribe(()=>{
+      this.loadActivities()
+    })
+  }
+
 
 
   deleteActivity(id: string): void {

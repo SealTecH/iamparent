@@ -3,6 +3,7 @@ export interface Activity {
   name: string;
   description: string;
   icon: string;
+  isFavorite: boolean;
 }
 
 export interface TimeBasedActivity extends Activity {

@@ -23,6 +23,9 @@
           </div>
         </ion-label>
         <div>
+          <ion-button  fill="outline" (click)="toggleFavorite(activity)">
+            <ion-icon slot="icon-only" size="small"  [name]="activity.isFavorite ? 'star': 'star-outline'"></ion-icon>
+          </ion-button>
           <ion-button  fill="outline" (click)="openEditActivityModal(activity.id)">
             <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
           </ion-button>

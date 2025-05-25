@@ -14,6 +14,8 @@ import { sortBy } from "lodash";
 import { DestroyObserver } from "../../shared/utils/destroy-observer";
 import { SelectedDateService } from "../../services/selected-date.service";
 import { ActivitiesService } from "../../services/activities.service";
+import { TranslatePipe } from "@ngx-translate/core";
+import { Clipboard } from '@capacitor/clipboard';
 
 @Injectable()
 export class HomePageService extends DestroyObserver {
@@ -49,12 +51,13 @@ export class HomePageService extends DestroyObserver {
   constructor(
     private dataService: DataService,
     private selectedDateService: SelectedDateService,
-    private activitiesService: ActivitiesService
+    private activitiesService: ActivitiesService,
+    private translatePipe: TranslatePipe,
   ) {
     super();
   }
 
-  init(){
+  public init(){
     this.loadActivities();
     this.selectedDateService.time$.pipe(takeUntil(this.destroy$)).subscribe(()=>{
       this.loadActions()
@@ -83,6 +86,26 @@ export class HomePageService extends DestroyObserver {
     ).subscribe(()=>{
       this.actions$.next([...this.actions$.value, action]);
     })
+  }
+
+  public async  createCopyToClipboard(){
+    const activities = this.activitiesService.activities$.value;
+    const actions = this.actions$.value;
+    const output = sortBy(actions, 'time').reduce((acc, action)=>{
+      const actionDate = new Date(action.time);
+      const actionTime: number | undefined = (action as TimeBasedAction).timeDone
+      const activity = activities.find(activity=>activity.id===action.activityId)!;
+      return `${acc}
+      ${acc.length? '---------------' : ''}
+      ${actionDate.getHours()}:${actionDate.getMinutes()} - ${this.translatePipe.transform(activity.name)}: ${
+        actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.MINUTES'):
+          (action as CounterBasedAction).countDone
+      }`
+    },'')
+    console.log(output);
+    await Clipboard.write({
+      string: output
+    });
   }
 
   public updateAction(action: Action): void {

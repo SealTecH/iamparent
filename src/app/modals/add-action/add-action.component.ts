@@ -7,7 +7,7 @@ import {
   IonDatetimeButton,
   IonHeader,
   IonInput,
-  IonItem,
+  IonItem, IonLabel,
   IonLoading,
   IonModal,
   IonSelect,
@@ -24,6 +24,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AsyncPipe, NgIf } from "@angular/common";
 import { ModalController } from "@ionic/angular";
 import { SelectedDateService } from "../../services/selected-date.service";
+import { addMinutes } from "date-fns";
 
 @Component({
   selector: 'app-add-action',
@@ -49,11 +50,13 @@ import { SelectedDateService } from "../../services/selected-date.service";
     AsyncPipe,
     IonSelect,
     IonSelectOption,
-    IonInput
+    IonInput,
+    IonLabel
   ]
 })
 export class AddActionComponent  implements OnInit {
   existingAction: Action |  undefined = undefined;
+  activityId: string | undefined;
   time: number | undefined  = undefined;
   minDate = this.convertToIonicString( new Date().setHours(0,0,0,0))
   maxDate = this.convertToIonicString( new Date().setHours(23 ,59,59,0) );
@@ -65,7 +68,7 @@ export class AddActionComponent  implements OnInit {
     id: new FormControl<string>(uuidv4(),{nonNullable: true}),
     activityId: new FormControl<string>('', [Validators.required]),
     time: new FormControl<number>(this.selectedDateService.startTime,{nonNullable: true}),
-    timeDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
+    timeDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required, Validators.min(1)]}),
     countDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
   })
 
@@ -82,7 +85,9 @@ export class AddActionComponent  implements OnInit {
 
     if(this.existingAction){
       this.form.patchValue(this.existingAction);
-
+    }
+    if(this.activityId){
+      this.form.controls.activityId.setValue(this.activityId);
     }
     this.form.valueChanges.subscribe(v=>console.log(v))
     this.loadData();
@@ -96,6 +101,17 @@ export class AddActionComponent  implements OnInit {
     const date= new Date(time)
     const pad = (n: number) => n.toString().padStart(2, '0');
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  }
+
+  getEndTimeInIonicString(): string {
+    const modifiedDate = addMinutes(new Date(this.form.controls.time.value), this.form.controls.timeDone.value!)
+   return  this.convertToIonicString(modifiedDate.getTime());
+  }
+
+  onEndTimeChange($event: any) {
+    const endTime = new Date($event.detail.value).getTime();
+    const diffMS = endTime - this.form.controls.time.value
+    this.form.controls.timeDone.setValue((diffMS /  1000) / 60);
   }
 
   onTimeChange($event: any): void {

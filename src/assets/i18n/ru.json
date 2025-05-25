@@ -17,6 +17,8 @@
     "TITLE": "Добавить событие",
     "EVENT_OCCURRED_TIMES": "Событие произошло раз:",
     "EVENT_LASTED": "Длилось минут:",
+    "EVENT_START_TIME": "Событие началось в",
+    "EVENT_END_TIME": "Событие закончилось в",
     "SELECT_ACTIVITY": "Выберите активность"
   },
   "MANAGE_ACTIVITY": {

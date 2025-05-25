@@ -17,6 +17,8 @@
     "TITLE": "Add Action",
     "EVENT_OCCURRED_TIMES": "Event occurred times:",
     "EVENT_LASTED": "Event lasted minutes:",
+    "EVENT_START_TIME": "Event start time",
+    "EVENT_END_TIME": "Event end time",
     "SELECT_ACTIVITY": "Select Activity"
   },
   "MANAGE_ACTIVITY": {

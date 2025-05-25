@@ -14,13 +14,15 @@
       </ion-select>
     </ion-item>
     <ion-item>
+      <ion-label>{{'ADD_ACTION.EVENT_START_TIME' | translate }}</ion-label>
       <ion-datetime-button datetime="datetime2" ></ion-datetime-button>
     </ion-item>
 
     <ng-container *ngIf="isSelectedActivityTimeBased();else countBased">
-      <ion-item>
-        <ion-input [label]="'ADD_ACTION.EVENT_LASTED'| translate" formControlName="timeDone" type="number" min="1" max="10000" value="1"></ion-input>
-      </ion-item>
+     <ion-item>
+       <ion-label>{{'ADD_ACTION.EVENT_END_TIME' | translate }}</ion-label>
+       <ion-datetime-button datetime="datetime22" ></ion-datetime-button>
+     </ion-item>
     </ng-container>
 
     <ng-template #countBased>
@@ -56,6 +58,26 @@
                   [max]="maxDate"
                   [hourCycle]="'h23'"
                   (ionChange)="onTimeChange($event)"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime22"
+                  presentation="time"
+                  [formatOptions]="{
+        time: {
+          hour: '2-digit',
+          minute: '2-digit',
+        },
+      }"
+                  [value]="getEndTimeInIonicString()"
+                  [min]="minDate"
+                  [max]="maxDate"
+                  [hourCycle]="'h23'"
+                  (ionChange)="onEndTimeChange($event)"
     ></ion-datetime>
   </ng-template>
 </ion-modal>
