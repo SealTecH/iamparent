@@ -7,7 +7,8 @@
 }
 
 .activities-list {
-  max-height: 50vw;
+  max-height: 30vw;
+  overflow: auto;
 }
 .timeline-container {
   position: relative;
@@ -15,6 +16,7 @@
   padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
+  max-height: 50vh;
 }
 
 .timeline-line {
@@ -79,4 +81,10 @@
   min-width: 200px;
   max-width: 400px;
   width: 250px;
+}
+.left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 48px;
 }

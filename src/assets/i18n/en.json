@@ -1,7 +1,8 @@
 {
   "HOME": {
     "TITLE": "Today's Activities",
-    "ADD": "Add Action"
+    "ADD": "Add Action",
+    "TIMES": "times"
   },
   "SETTINGS": {
     "TITLE": "Settings",
@@ -15,11 +16,28 @@
   "ADD_ACTION": {
     "TITLE": "Add Action",
     "EVENT_OCCURRED_TIMES": "Event occurred times:",
-    "EVENT_LASTED": "Event lasted minutes:"
+    "EVENT_LASTED": "Event lasted minutes:",
+    "SELECT_ACTIVITY": "Select Activity"
+  },
+  "MANAGE_ACTIVITY": {
+    "TITLE": "Manage Activity",
+    "NAME": "Name of activity:",
+    "RECOMMENDED_TIME": "Recommended duration per day",
+    "RECOMMENDED_AMOUNT": "Recommended amount",
+    "TIME_BASED": "Track activity in time",
+    "COUNT_BASED": "Track by counting"
+  },
+  "ACTIVITIES": {
+    "TITLE": "Manage Activities",
+    "DELETE_WARNING": "Removing of this activity also will remove all connected actions"
   },
   "SHARED": {
     "LOADING": "Loading...",
     "SAVE": "Save",
-    "MINUTES": "Mins"
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "DELETE_RECORD": "Are you sure you want to delete the record?",
+    "MINUTES": "Mins",
+    "PER_DAY": "times per day"
   }
 }

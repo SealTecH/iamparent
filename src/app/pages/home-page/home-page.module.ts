@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { TranslatePipe } from "@ngx-translate/core";
-// import { AddActionModule } from "../add-action/add-action.module";
 
 @NgModule({
   declarations: [
@@ -14,14 +13,15 @@ import { TranslatePipe } from "@ngx-translate/core";
   exports: [
     HomePageComponent,
   ],
-    imports: [
-        IonicModule,
-        CommonModule,
-        FormsModule,
-        HomePageRoutingModule,
-        TranslatePipe,
-      // AddActionModule
-    ],
-  providers: [],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    HomePageRoutingModule,
+    TranslatePipe,
+  ],
+  providers: [
+    TranslatePipe
+  ],
 })
 export class HomePageModule {}

@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  padding: 5px;
+}
+.icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  button {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 24px;
+
+    &.selected {
+      border-color: var(--ion-color-primary);
+      background-color: var(--ion-color-light);
+    }
+  }
+}

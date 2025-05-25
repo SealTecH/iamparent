@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, combineLatest, finalize, Observable, take } from "rxjs";
+import { BehaviorSubject, combineLatest, finalize, Observable, switchMap, take, takeUntil } from "rxjs";
 import {
   Action,
   Activity,
@@ -11,21 +11,17 @@ import {
 import { DataService } from "../../services/data.service";
 import { map } from "rxjs/operators";
 import { sortBy } from "lodash";
-
-export interface ActivityWithAction<T = Action> {
-  action: T;
-  activity: Activity;
-}
+import { DestroyObserver } from "../../shared/utils/destroy-observer";
+import { SelectedDateService } from "../../services/selected-date.service";
+import { ActivitiesService } from "../../services/activities.service";
 
 @Injectable()
-export class HomePageService {
-  private activities$ = new BehaviorSubject<(TimeBasedActivity | CounterBasedActivity)[]>([]);
+export class HomePageService extends DestroyObserver {
 
-  private activitiesIds = new Set<string>()
   private actions$ = new BehaviorSubject<Action[]>([]);
 
   public activitiesWithTimeDone$: Observable<((TimeBasedActivity | CounterBasedActivity) & { currentDone: number })[]> = combineLatest([
-    this.activities$,
+    this.activitiesService.activities$,
     this.actions$
   ]).pipe(map(([activities, actions]) => {
     return activities.map(activity => ({
@@ -35,11 +31,10 @@ export class HomePageService {
   }))
 
   public timeline$: Observable<(Action & { activity: Activity })[]> = combineLatest([
-    this.activities$,
+    this.activitiesService.activities$,
     this.actions$
   ]).pipe(
     map(([activities, actions]) => {
-      console.log(actions);
       return sortBy(actions.map((action) => {
         return {
           ...action,
@@ -51,26 +46,74 @@ export class HomePageService {
 
   public loading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private dataService: DataService) {
+  constructor(
+    private dataService: DataService,
+    private selectedDateService: SelectedDateService,
+    private activitiesService: ActivitiesService
+  ) {
+    super();
+  }
+
+  init(){
+    this.loadActivities();
+    this.selectedDateService.time$.pipe(takeUntil(this.destroy$)).subscribe(()=>{
+      this.loadActions()
+    })
+  }
+
+  public getActionImmediately(actionId: string): Action | undefined {
+   return  this.actions$.value.find(action=>action.id === actionId);
   }
 
   public loadActivities(): void {
     this.loading$.next(true);
-    this.dataService.getActivities().pipe(
+    this.activitiesService.loadActivities().pipe(
       take(1),
       finalize(() => this.loading$.next(false))
-    ).subscribe(activities => {
-      this.activities$.next(activities);
-      this.activitiesIds = new Set();
-      activities.forEach(activity => {
-        this.activitiesIds.add(activity.id)
-      });
+    ).subscribe()
+  }
+
+  public addAction(action: Action): void {
+    this.loading$.next(true);
+    this.dataService.addAction(action).pipe(
+      take(1),
+      finalize(() => {
+        this.loading$.next(false)
+      })
+    ).subscribe(()=>{
+      this.actions$.next([...this.actions$.value, action]);
     })
   }
 
-  public loadData(dayId: string): void {
+  public updateAction(action: Action): void {
     this.loading$.next(true);
-    this.dataService.getActions(dayId).pipe(
+    this.dataService.updateAction(action).pipe(
+      take(1),
+      finalize(() => {
+        this.loading$.next(false)
+      })
+    ).subscribe(()=>{
+      this.loadActions()
+    })
+  }
+
+  public deleteAction(actionId: string): void {
+    this.loading$.next(true);
+    this.dataService.deleteAction(actionId).pipe(
+      take(1),
+      finalize(() => {
+        this.loading$.next(false)
+      })
+    ).subscribe(()=>{
+      const remainingActions = this.actions$.value;
+      remainingActions.splice(this.actions$.value.findIndex(action=>action.id===actionId),1)
+      this.actions$.next(remainingActions);
+    })
+  }
+
+  public loadActions(): void {
+    this.loading$.next(true);
+    this.dataService.getActions(this.selectedDateService.startTime,this.selectedDateService.endTime).pipe(
       take(1),
       finalize(() => this.loading$.next(false))
     ).subscribe(actions => {

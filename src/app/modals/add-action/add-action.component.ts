@@ -1,27 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  IonBackButton,
   IonButton,
   IonButtons,
   IonContent,
   IonDatetime,
   IonDatetimeButton,
-  IonHeader, IonInput, IonItem, IonLabel, IonList, IonLoading,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonLoading,
   IonModal,
-  IonNavLink,
-  IonSearchbar, IonSelect, IonSelectOption,
+  IonSelect,
+  IonSelectOption,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
 import { TranslatePipe } from "@ngx-translate/core";
-import { Router } from "@angular/router";
 import { DataService } from "../../services/data.service";
 import { BehaviorSubject, finalize, take } from "rxjs";
 import { Action, Activity, TimeBasedActivity } from "../../models/models";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { v4 as uuidv4 } from 'uuid';
-import { generateDayIdToday } from "../../shared/utils/generate-day-id-today.func";
 import { AsyncPipe, NgIf } from "@angular/common";
+import { ModalController } from "@ionic/angular";
+import { SelectedDateService } from "../../services/selected-date.service";
 
 @Component({
   selector: 'app-add-action',
@@ -30,7 +32,6 @@ import { AsyncPipe, NgIf } from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    IonBackButton,
     IonButton,
     IonButtons,
     IonContent,
@@ -52,9 +53,10 @@ import { AsyncPipe, NgIf } from "@angular/common";
   ]
 })
 export class AddActionComponent  implements OnInit {
-  minDate = new Date( new Date().setUTCHours(0,0,0,0)).toISOString();
-  maxDate = new Date(  new Date().setUTCHours(23 ,59,59,0) ).toISOString();
-  currentDate =  new Date().toISOString();
+  existingAction: Action |  undefined = undefined;
+  time: number | undefined  = undefined;
+  minDate = this.convertToIonicString( new Date().setHours(0,0,0,0))
+  maxDate = this.convertToIonicString( new Date().setHours(23 ,59,59,0) );
   loading$ = new BehaviorSubject<boolean>(false);
 
   activities$ = new BehaviorSubject<Activity[]>([]);
@@ -62,24 +64,38 @@ export class AddActionComponent  implements OnInit {
   public form = new FormGroup({
     id: new FormControl<string>(uuidv4(),{nonNullable: true}),
     activityId: new FormControl<string>('', [Validators.required]),
-    time: new FormControl<number>(new Date().getTime(),{nonNullable: true}),
-    dayId: new FormControl<string>(generateDayIdToday(),{nonNullable: true}),
+    time: new FormControl<number>(this.selectedDateService.startTime,{nonNullable: true}),
     timeDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
     countDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
   })
 
 
-  constructor(private router: Router,
-              private dataService: DataService) {
+  constructor(private dataService: DataService,
+              private modalCtrl: ModalController,
+              private selectedDateService:SelectedDateService) {
   }
 
   ngOnInit() {
+    this.minDate = this.convertToIonicString( this.selectedDateService.startTime)
+    this.maxDate = this.convertToIonicString( this.selectedDateService.endTime );
+    console.log(new Date(this.selectedDateService.startTime));
+
+    if(this.existingAction){
+      this.form.patchValue(this.existingAction);
+
+    }
+    this.form.valueChanges.subscribe(v=>console.log(v))
     this.loadData();
-    this.form.valueChanges.subscribe(v=> console.log(v))
   }
 
   goBack(){
-    this.router.navigate(['/']);
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  convertToIonicString(time:number): string {
+    const date= new Date(time)
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
   }
 
   onTimeChange($event: any): void {
@@ -98,16 +114,16 @@ export class AddActionComponent  implements OnInit {
     }else {
       delete action.timeDone;
     }
-    this.loading$.next(true)
-    this.dataService.addAction(action as Action).pipe(  finalize(()=> this.loading$.next(false))).subscribe(()=>{
-      this.goBack();
-    })
+
+    return this.modalCtrl.dismiss(action, 'confirm');
   }
 
   private loadData(){
     this.loading$.next(true);
     this.dataService.getActivities().pipe(take(1),
       finalize(()=> this.loading$.next(false))
-    ).subscribe(activities => this.activities$.next(activities))
+    ).subscribe(activities => {
+      this.activities$.next(activities);
+    })
   }
 }

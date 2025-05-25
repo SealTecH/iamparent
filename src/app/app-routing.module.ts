@@ -12,8 +12,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home-page/home-page.module').then(m => m.HomePageModule)
   },
   {
-    path: 'add-action',
-    loadComponent: () => import('./pages/add-action/add-action.component').then(mod => mod.AddActionComponent),
+    path: 'activities',
+    loadComponent: () => import('./pages/activities-page/activities-page.component').then(mod => mod.ActivitiesPageComponent),
   },
 ];
 

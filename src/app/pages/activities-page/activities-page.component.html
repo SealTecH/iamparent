@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" default-href="#"></ion-back-button>
+    <ion-title>{{'ACTIVITIES.TITLE' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-loading *ngIf="loading$ | async" [message]="'SHARED.LOADING' | translate"></ion-loading>
+
+  <ion-button expand="block" (click)="openAddActivityModal()"  >
+    <ion-icon [name]="'add-outline'" ></ion-icon>
+    {{'HOME.ADD' | translate }}
+  </ion-button>
+
+  <ion-list class="activities-list" [inset]="true">
+    @for (activity of (activities$ | async); track activity.id){
+      <ion-item>
+        <ion-icon [name]="activity.icon" slot="start"></ion-icon>
+        <ion-label class="activity-name-container">
+          <div class="activity-name">
+            {{ (activity.name | translate)+' ('+getRecommendedValue(activity)+')' }}
+          </div>
+        </ion-label>
+        <div>
+          <ion-button  fill="outline" (click)="openEditActivityModal(activity.id)">
+            <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
+          </ion-button>
+          <ion-button  fill="outline" (click)="deleteActivity(activity.id)">
+            <ion-icon slot="icon-only" size="small"  name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

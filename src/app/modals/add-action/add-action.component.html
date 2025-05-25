@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button (click)="goBack()"></ion-back-button>
-    </ion-buttons>
     <ion-title>{{'ADD_ACTION.TITLE'  | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,30 +7,33 @@
 <ion-content>
   <form [formGroup]="form" >
     <ion-item>
-      <ion-select label="Select Activity" formControlName="activityId">
+      <ion-select [label]="'ADD_ACTION.SELECT_ACTIVITY' | translate" formControlName="activityId">
         @for(activity of activities$ | async; track activity.id) {
           <ion-select-option [value]="activity.id">{{activity.name | translate}}</ion-select-option>
         }
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-datetime-button datetime="datetime" ></ion-datetime-button>
+      <ion-datetime-button datetime="datetime2" ></ion-datetime-button>
     </ion-item>
 
     <ng-container *ngIf="isSelectedActivityTimeBased();else countBased">
       <ion-item>
-        <ion-input [label]="'ADD_ACTION.EVENT_LASTED'| translate" type="number" min="1" max="10000" value="1"></ion-input>
+        <ion-input [label]="'ADD_ACTION.EVENT_LASTED'| translate" formControlName="timeDone" type="number" min="1" max="10000" value="1"></ion-input>
       </ion-item>
     </ng-container>
 
     <ng-template #countBased>
       <ion-item>
-        <ion-input [label]="'ADD_ACTION.EVENT_OCCURRED_TIMES'| translate" type="number" min="1" max="100" value="1"></ion-input>
+        <ion-input [label]="'ADD_ACTION.EVENT_OCCURRED_TIMES'| translate" formControlName="countDone" type="number" min="1" max="1000" value="1"></ion-input>
       </ion-item>
     </ng-template>
 
     <ion-item>
-      <ion-button [color]="'success'" [disabled]="form.invalid"  (click)="onAddAction()">{{'SHARED.SAVE' | translate}}</ion-button>
+      <ion-buttons slot="end">
+        <ion-button [color]="'success'" [disabled]="form.invalid"  (click)="onAddAction()">{{'SHARED.SAVE' | translate}}</ion-button>
+        <ion-button [color]="'warn'"  (click)="goBack()">{{'SHARED.CANCEL' | translate}}</ion-button>
+      </ion-buttons>
     </ion-item>
 
   </form>
@@ -43,7 +43,7 @@
 
 <ion-modal [keepContentsMounted]="true">
   <ng-template>
-    <ion-datetime id="datetime"
+    <ion-datetime id="datetime2"
                   presentation="time"
                   [formatOptions]="{
         time: {
@@ -51,9 +51,9 @@
           minute: '2-digit',
         },
       }"
+                  [value]="convertToIonicString(this.form.controls.time.value)"
                   [min]="minDate"
                   [max]="maxDate"
-                  [value]="currentDate"
                   [hourCycle]="'h23'"
                   (ionChange)="onTimeChange($event)"
     ></ion-datetime>

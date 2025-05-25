@@ -1,15 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Сегодня</ion-title>
+    <ion-datetime-button slot="start" datetime="datetime"></ion-datetime-button>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/calendar']">
-        <ion-icon name="calendar-outline"></ion-icon>
+      <ion-button (click)="openActivities()">
+        <ion-icon [name]="'star-outline'" ></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="openSettings()">
+        <ion-icon [name]="'cog-outline'" ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="home-page-container">
+  <ion-loading *ngIf="loading$ | async" [message]="'SHARED.LOADING' | translate"></ion-loading>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <h3 class="pl-16">{{'HOME.TITLE' | translate }}</h3>
   <ion-list class="activities-list" [inset]="true">
     @for (activity of (activities$ | async); track activity.id)
@@ -28,7 +37,7 @@
     }
   </ion-list>
   <div>
-    <ion-button expand="block"  [routerLink]="['/add-action']"  >
+    <ion-button expand="block" (click)="openAddActionModal()"  >
       <ion-icon [name]="'add-outline'" ></ion-icon>
       {{'HOME.ADD' | translate }}
     </ion-button>
@@ -36,27 +45,29 @@
   </div>
 
   <div class="timeline-container">
-    <div class="timeline-line"></div>
+    <div class="timeline-line" [style.height.px]=" (timeline$ | async)!.length*99"></div>
     @for (action of (timeline$ | async); track action.id){
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
 
           <div class="details">
-            <div>
+            <div class="left-container">
               <div class="time">{{ formatTime(action.time) }}</div>
               <div>
                 <ion-icon [name]="action.activity!.icon"></ion-icon>
                 {{ action.activity!.name | translate }}
-                <span *ngIf="isTimeBasedAction(action)"> ({{ getDuration(action) + ' '+('SHARED.MINUTES' |translate) }} )</span>
+                <span> ({{ getDetails(action) }} )</span>
               </div>
             </div>
-            <ion-button  fill="outline" (click)="openEdit(action.id)">
-              <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
-            </ion-button>
-            <ion-button  fill="outline" (click)="deleteAction(action.id)">
-              <ion-icon slot="icon-only" size="small"  name="trash"></ion-icon>
-            </ion-button>
+            <div>
+              <ion-button  fill="outline" (click)="openEditActionModal(action.id)">
+                <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
+              </ion-button>
+              <ion-button  fill="outline" (click)="deleteAction(action.id)">
+                <ion-icon slot="icon-only" size="small"  name="trash"></ion-icon>
+              </ion-button>
+            </div>
           </div>
         </div>
       </div>
@@ -64,3 +75,14 @@
   </div>
 </ion-content>
 
+
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      id="datetime"
+      presentation="date"
+      [showDefaultButtons]="true"
+      (ionChange)="onDateChange($event)"></ion-datetime>
+  </ng-template>
+</ion-modal>

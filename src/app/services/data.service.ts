@@ -23,7 +23,6 @@ export class DataService {
     }
     if(!environment.production){
       const actions = await this.storage.get('actions');
-      console.log(actions);
       if(!actions) {
         await this.storage.set('actions', DEFAULT_ACTIONS)
       }
@@ -36,16 +35,9 @@ export class DataService {
   private waitForStorage<T>(callback: () => Promise<T>): Observable<T> {
     return this.storageReady.pipe(
       switchMap(ready => {
-        console.log(ready);
         return ready ? from(callback()) : new Observable<T>()
       })
     );
-  }
-
-  // === Days ===
-  getDay(time: number): Day | undefined {
-    // Для простоты пока возвращаем undefined, позже добавим полноценную реализацию
-    return undefined;
   }
 
   // === Activities ===
@@ -82,14 +74,29 @@ export class DataService {
   }
 
   // === Actions ===
-  getActions(dayId: string): Observable<Action[]> {
+  getActions(timeStart: number, timeEnd: number): Observable<Action[]> {
     return this.waitForStorage(() =>
-      this.storage.get(`actions`).then((actions: Action[]) => (actions || []).filter(action=> dayId===action.dayId ))
+      this.storage.get(`actions`).then((actions: Action[]) => (actions || []).filter(action=> action.time>=timeStart && action.time<=timeEnd))
+    );
+  }
+
+  getAllActions(): Observable<Action[]> {
+    return this.waitForStorage(() =>
+      this.storage.get(`actions`).then((actions: Action[]) => (actions || [])));
+  }
+
+  deleteActionsByActivityId(activityId: string): Observable<void> {
+    return this.waitForStorage(async () =>
+      {
+       const actions:Action[] | undefined = await   this.storage.get(`actions`);
+       const filteredActions =  (actions || []).filter(action=> activityId!==action.activityId );
+       await this.storage.set('actions', filteredActions);
+      }
     );
   }
 
   addAction(action: Action): Observable<void> {
-    return this.getActions(action.dayId).pipe(
+    return this.getAllActions().pipe(
       switchMap(actions => {
         actions.push(action);
         return from(this.storage.set(`actions`, actions));
@@ -97,8 +104,8 @@ export class DataService {
     );
   }
 
-  updateAction(dayId: string, action: Action): Observable<void> {
-    return this.getActions(dayId).pipe(
+  updateAction(action: Action): Observable<void> {
+    return this.getAllActions().pipe(
       switchMap(actions => {
         const index = actions.findIndex(a => a.id === action.id);
         if (index !== -1) actions[index] = action;
@@ -107,8 +114,8 @@ export class DataService {
     );
   }
 
-  deleteAction(dayId: string, id: string): Observable<void> {
-    return this.getActions(dayId).pipe(
+  deleteAction(id: string): Observable<void> {
+    return this.getAllActions().pipe(
       switchMap(actions => {
         const filtered = actions.filter(a => a.id !== id);
         return from(this.storage.set(`actions`, filtered));

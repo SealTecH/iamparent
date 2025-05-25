@@ -1,0 +1,13 @@
+<div class="icon-grid">
+  @for(icon of iconList; track icon){
+  <button
+    type="button"
+    [disabled]="disabled"
+    [class.selected]="icon === value"
+    (click)="selectIcon(icon)"
+  >
+    <ion-icon [name]="icon"></ion-icon>
+  </button>
+  }
+
+</div>

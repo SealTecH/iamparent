@@ -17,7 +17,6 @@ export interface Action {
   id: string;
   activityId: string;
   time: number; // timestamp
-  dayId: string;
 }
 
 export interface TimeBasedAction extends Action {
