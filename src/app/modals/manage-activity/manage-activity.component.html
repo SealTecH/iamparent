@@ -32,6 +32,9 @@
       <app-icon-picker formControlName="icon" ></app-icon-picker>
     </ion-item>
     <ion-item>
+      <color-picker formControlName="color" ></color-picker>
+    </ion-item>
+    <ion-item>
       <ion-buttons slot="end">
         <ion-button [color]="'success'" [disabled]="form.invalid"  (click)="onAddActivity()">{{'SHARED.SAVE' | translate}}</ion-button>
         <ion-button [color]="'warn'"  (click)="goBack()">{{'SHARED.CANCEL' | translate}}</ion-button>

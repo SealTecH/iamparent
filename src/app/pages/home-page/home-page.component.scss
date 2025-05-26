@@ -11,6 +11,9 @@
   max-height: 30%;
   overflow: auto;
 }
+.activity-item {
+  border: 2px solid transparent;
+}
 .timeline-container {
   position: relative;
   margin-left: 20px;
@@ -54,10 +57,12 @@
   padding: 10px;
   border-radius: 8px;
   width: 100%;
+  border: 2px solid transparent;
 }
 
 .time {
   font-size: 0.8em;
+  font-weight: bold;
   color: var(--ion-color-medium);
 }
 

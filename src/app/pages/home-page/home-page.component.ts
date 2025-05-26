@@ -140,10 +140,6 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     return  activity.currentDone /  recommendedPart
   }
 
-  handleRefresh(){
-    this.loadData();
-  }
-
   async openSettings(){
 
   }
@@ -154,10 +150,6 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
 
   openActivities(){
     this.router.navigate(['/activities'])
-  }
-
-  private loadData(){
-    this.service.loadActions();
   }
 
 }

@@ -7,7 +7,8 @@ export const DEFAULT_ACTIVITIES:(TimeBasedActivity | CounterBasedActivity)[] = [
     description: '',
     icon:'moon-outline',
     recommendedTime: 60* 16, // 16 hours
-    isFavorite: true
+    isFavorite: true,
+    color: '#BA68C8'
   },
   {
     id: 'POOP',
@@ -15,7 +16,8 @@ export const DEFAULT_ACTIVITIES:(TimeBasedActivity | CounterBasedActivity)[] = [
     description: '',
     icon: 'prism-outline',
     recommendedAmount: 1,
-    isFavorite: true
+    isFavorite: true,
+    color: '#A1887F'
   },
 
 ]

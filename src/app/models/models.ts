@@ -4,6 +4,7 @@ export interface Activity {
   description: string;
   icon: string;
   isFavorite: boolean;
+  color: string;
 }
 
 export interface TimeBasedActivity extends Activity {

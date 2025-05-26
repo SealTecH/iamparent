@@ -16,9 +16,10 @@ import {
 } from "@ionic/angular/standalone";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { v4 as uuidv4 } from "uuid";
-import { ModalController } from "@ionic/angular";
+import { ModalController, Platform } from "@ionic/angular";
 import { Activity, TimeBasedActivity } from "../../models/models";
 import { IconPickerComponent } from "./components/icon-picker/icon-picker.component";
+import { ColorPickerComponent } from "./components/color-picker/color-picker.component";
 
 @Component({
   selector: 'app-manage-activity',
@@ -38,7 +39,8 @@ import { IconPickerComponent } from "./components/icon-picker/icon-picker.compon
     ReactiveFormsModule,
     IonRadioGroup,
     IonRadio,
-    IconPickerComponent
+    IconPickerComponent,
+    ColorPickerComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -48,6 +50,8 @@ export class ManageActivityComponent implements OnInit {
 
   public form = new FormGroup({
     id: new FormControl<string>(uuidv4(),{nonNullable: true}),
+    color: new FormControl<string>('',{nonNullable: true}),
+    isFavorite: new FormControl<boolean>(false,{nonNullable: true}),
     name: new FormControl<string>('', [Validators.required]),
     isTimeBased: new FormControl<boolean>(false, [Validators.required]),
     description: new FormControl<string>('' ),
@@ -56,7 +60,11 @@ export class ManageActivityComponent implements OnInit {
     recommendedAmount: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
   })
 
-  constructor(private modalCtrl: ModalController,) { }
+  constructor(private modalCtrl: ModalController, private platform: Platform,) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBack()
+    });
+  }
 
   ngOnInit() {
     if(this.existingActivity){

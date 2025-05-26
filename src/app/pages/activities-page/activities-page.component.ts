@@ -34,7 +34,9 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private translatePipe: TranslatePipe,
     private activitiesService: ActivitiesService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     this.service.loadActivities();

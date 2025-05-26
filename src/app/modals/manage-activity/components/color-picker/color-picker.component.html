@@ -1,0 +1,13 @@
+<div class="icon-grid">
+  @for(color of colorsList; track color){
+    <button
+      type="button"
+      [style.background-color]="color"
+      [disabled]="disabled"
+      [class.selected]="color === value"
+      (click)="selectColor(color)"
+    >
+    </button>
+  }
+
+</div>

@@ -22,7 +22,7 @@ import { Action, Activity, TimeBasedActivity } from "../../models/models";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { v4 as uuidv4 } from 'uuid';
 import { AsyncPipe, NgIf } from "@angular/common";
-import { ModalController } from "@ionic/angular";
+import { ModalController, Platform } from "@ionic/angular";
 import { SelectedDateService } from "../../services/selected-date.service";
 import { addMinutes } from "date-fns";
 
@@ -75,7 +75,11 @@ export class AddActionComponent  implements OnInit {
 
   constructor(private dataService: DataService,
               private modalCtrl: ModalController,
+              private platform: Platform,
               private selectedDateService:SelectedDateService) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBack()
+    });
   }
 
   ngOnInit() {

@@ -1,5 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { IonicModule } from "@ionic/angular";
+import { Component, forwardRef } from '@angular/core';
 import { IonIcon } from "@ionic/angular/standalone";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
@@ -36,7 +35,16 @@ export class IconPickerComponent implements ControlValueAccessor {
     'moon-outline',
     'heart-outline',
     'desktop-outline',
-    'prism-outline'
+    'prism-outline',
+    'apps-outline',
+    'bag-add-outline',
+    'barbell-outline',
+    'boat-outline',
+    'cart-outline',
+    'fish-outline',
+    'hourglass-outline',
+    'musical-notes-outline',
+    'water-outline'
   ];
 
   value: string = '';
