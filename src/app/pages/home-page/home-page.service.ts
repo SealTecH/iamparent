@@ -6,7 +6,7 @@ import {
   CounterBasedAction,
   CounterBasedActivity,
   TimeBasedAction,
-  TimeBasedActivity
+  TimeBasedActivity, Timeline
 } from "../../models/models";
 import { DataService } from "../../services/data.service";
 import { map } from "rxjs/operators";
@@ -98,7 +98,7 @@ export class HomePageService extends DestroyObserver {
       return `${acc}
       ${acc.length? '---------------' : ''}
       ${actionDate.getHours()}:${actionDate.getMinutes()} - ${this.translatePipe.transform(activity.name)}: ${
-        actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.MINUTES'):
+        actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.M'):
           (action as CounterBasedAction).countDone
       }`
     },'')

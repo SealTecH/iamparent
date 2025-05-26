@@ -1,8 +1,7 @@
 {
   "HOME": {
     "TITLE": "Today's Activities",
-    "ADD": "Add Action",
-    "TIMES": "times"
+    "ADD": "Add Action"
   },
   "SETTINGS": {
     "TITLE": "Settings",
@@ -14,7 +13,7 @@
     "POOP": "Poop"
   },
   "ADD_ACTION": {
-    "TITLE": "Add Action",
+    "TITLE": "Manage Event",
     "EVENT_OCCURRED_TIMES": "Event occurred times:",
     "EVENT_LASTED": "Event lasted minutes:",
     "EVENT_START_TIME": "Event start time",
@@ -34,12 +33,14 @@
     "DELETE_WARNING": "Removing of this activity also will remove all connected actions"
   },
   "SHARED": {
+    "H": "h.",
     "LOADING": "Loading...",
     "SAVE": "Save",
+    "TIMES": "times",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
     "DELETE_RECORD": "Are you sure you want to delete the record?",
-    "MINUTES": "Mins",
+    "M": "m.",
     "PER_DAY": "times per day"
   }
 }

@@ -8,7 +8,7 @@ import {
   TimeBasedActivity
 } from "../../models/models";
 import { DestroyObserver } from "../../shared/utils/destroy-observer";
-import { tap } from "rxjs";
+import { firstValueFrom, take, tap } from "rxjs";
 import { HomePageService } from "./home-page.service";
 import { isNil } from "lodash";
 import { ModalController } from "@ionic/angular";
@@ -17,6 +17,8 @@ import { Dialog } from '@capacitor/dialog';
 import { TranslatePipe } from "@ngx-translate/core";
 import { SelectedDateService } from "../../services/selected-date.service";
 import { map } from "rxjs/operators";
+import { DayStatisticComponent } from "../../modals/day-statistic/day-statistic.component";
+import { amountToHours, formatDuration } from "../../shared/utils/minutes-to-human-time.func";
 
 @Component({
   selector: 'home-page',
@@ -53,15 +55,12 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
      return !isNil((activity as TimeBasedActivity).recommendedTime)
   }
 
-  public getSuffix(activity: Activity): string {
-      return  this.translatePipe.transform(this.isTimeBasedActivity(activity) ? 'SHARED.MINUTES': 'HOME.TIMES' )
+  public formatDone(activity: Activity & { currentDone: number }): string {
+    return this.isTimeBasedActivity(activity) ? amountToHours(activity.currentDone, this.translatePipe): `${activity.currentDone} ${ this.translatePipe.transform('SHARED.TIMES') }`
   }
 
   public getDetails(action: Action): string {
-    if((action as TimeBasedAction).timeDone){
-      return  `${this.getDuration(action)} ${this.translatePipe.transform('SHARED.MINUTES')}`
-    }
-    return `${(action as CounterBasedAction).countDone} ${this.translatePipe.transform('HOME.TIMES')}`
+     return formatDuration(action as  (TimeBasedAction | CounterBasedAction), this.translatePipe)
   }
 
   formatTime(timestamp: number): string {
@@ -150,6 +149,19 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
 
   openActivities(){
     this.router.navigate(['/activities'])
+  }
+
+  async openDayStatisticModal()  {
+    const timeline = await firstValueFrom(this.service.timeline$);
+    const modal = await this.modalCtrl.create({
+      component: DayStatisticComponent,
+      componentProps: {
+        timeline
+      },
+      showBackdrop: true,
+      backdropDismiss: false,
+    });
+    await modal.present();
   }
 
 }

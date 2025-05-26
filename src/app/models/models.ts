@@ -35,3 +35,5 @@ export interface Day {
   time: number;
   actions: Action[];
 }
+
+export type Timeline = (Action & { activity: Activity });

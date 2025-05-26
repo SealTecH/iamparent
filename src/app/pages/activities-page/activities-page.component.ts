@@ -71,7 +71,7 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
 
   getRecommendedValue(activity: Activity): string {
     if((activity as TimeBasedActivity).recommendedTime){
-      return `${(activity as TimeBasedActivity).recommendedTime} ${this.translatePipe.transform('SHARED.MINUTES')}`
+      return `${(activity as TimeBasedActivity).recommendedTime} ${this.translatePipe.transform('SHARED.M')}`
     }
     return `${(activity as CounterBasedActivity).recommendedAmount} ${this.translatePipe.transform('SHARED.PER_DAY')}`
   }

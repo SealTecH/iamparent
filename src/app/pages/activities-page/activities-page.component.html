@@ -15,7 +15,7 @@
 
   <ion-list class="activities-list" [inset]="true">
     @for (activity of (activities$ | async); track activity.id){
-      <ion-item>
+      <ion-item class="pointer" (click)="openEditActivityModal(activity.id)">
         <ion-icon [name]="activity.icon" slot="start"></ion-icon>
         <ion-label class="activity-name-container">
           <div class="activity-name">
@@ -25,9 +25,6 @@
         <div>
           <ion-button  fill="outline" (click)="toggleFavorite(activity)">
             <ion-icon slot="icon-only" size="small"  [name]="activity.isFavorite ? 'star': 'star-outline'"></ion-icon>
-          </ion-button>
-          <ion-button  fill="outline" (click)="openEditActivityModal(activity.id)">
-            <ion-icon slot="icon-only" size="small"  name="pencil"></ion-icon>
           </ion-button>
           <ion-button  fill="outline" (click)="deleteActivity(activity.id)">
             <ion-icon slot="icon-only" size="small"  name="trash"></ion-icon>

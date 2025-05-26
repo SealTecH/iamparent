@@ -19,7 +19,7 @@
 
     <ng-container *ngIf="form.controls.isTimeBased.value;else countBased">
       <ion-item>
-        <ion-input labelPlacement="floating" [label]="('MANAGE_ACTIVITY.RECOMMENDED_TIME'| translate)+' ('+('SHARED.MINUTES'| translate)+')'" formControlName="recommendedTime" type="number" min="1" max="10000" value="1"></ion-input>
+        <ion-input labelPlacement="floating" [label]="('MANAGE_ACTIVITY.RECOMMENDED_TIME'| translate)+' ('+('SHARED.M'| translate)+')'" formControlName="recommendedTime" type="number" min="1" max="10000" value="1"></ion-input>
       </ion-item>
     </ng-container>
 
