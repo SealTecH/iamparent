@@ -18,7 +18,9 @@
     "EVENT_LASTED": "Event lasted minutes:",
     "EVENT_START_TIME": "Event start time",
     "EVENT_END_TIME": "Event end time",
-    "SELECT_ACTIVITY": "Select Activity"
+    "SELECT_ACTIVITY": "Select Activity",
+    "COMMENT": "Comment",
+    "COMMENT_PLACEHOLDER": "type something"
   },
   "MANAGE_ACTIVITY": {
     "TITLE": "Manage Activity",

@@ -56,10 +56,7 @@
           <div class="details">
             <div class="left-container">
               <div class="time">
-                {{ formatTime(action.time) }}
-                <ng-container *ngIf="getDuration(action)">
-                  {{getEndTime(action)}}
-                </ng-container>
+                {{ formatTime(action.time) }} - {{getEndTime(action)}}
               </div>
               <div class="name-wrapper">
                 <ion-icon [name]="action.activity!.icon"></ion-icon>
@@ -69,7 +66,18 @@
               </div>
             </div>
             <div>
-              <ion-button  fill="outline" (click)="deleteAction(action.id)">
+              @if(action.comment){
+                <ion-button [id]="'comment'+action.id"  fill="outline"  (click)="showComment(action, $event)" >
+                  <ion-icon slot="icon-only" size="small"  name="chatbox-outline"></ion-icon>
+                </ion-button>
+
+                <ion-popover [trigger]="'comment'+action.id" triggerAction="click">
+                  <ng-template>
+                    <ion-content class="ion-padding">{{action.comment}}</ion-content>
+                  </ng-template>
+                </ion-popover>
+              }
+              <ion-button  fill="outline" (click)="deleteAction(action.id, $event)">
                 <ion-icon slot="icon-only" size="small"  name="trash"></ion-icon>
               </ion-button>
             </div>

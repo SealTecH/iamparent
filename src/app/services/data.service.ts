@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Action, Activity, CounterBasedActivity, Day, TimeBasedActivity } from "../models/models";
+import { Action, Activity } from "../models/models";
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -41,11 +41,11 @@ export class DataService {
   }
 
   // === Activities ===
-  getActivities(): Observable<(TimeBasedActivity | CounterBasedActivity)[]> {
+  getActivities(): Observable<Activity[]> {
     return this.waitForStorage(() => this.storage.get('activities').then(a => a || []));
   }
 
-  addActivity(activity: (TimeBasedActivity | CounterBasedActivity)): Observable<void> {
+  addActivity(activity: Activity): Observable<void> {
     return this.getActivities().pipe(
       switchMap(activities => {
         activities.push(activity);
@@ -54,7 +54,7 @@ export class DataService {
     );
   }
 
-  updateActivity(activity: (TimeBasedActivity | CounterBasedActivity)): Observable<void> {
+  updateActivity(activity: Activity): Observable<void> {
     return this.getActivities().pipe(
       switchMap(activities => {
         const index = activities.findIndex(a => a.id === activity.id);

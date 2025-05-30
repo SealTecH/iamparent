@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "../../services/data.service";
 import { BehaviorSubject, finalize, switchMap, take } from "rxjs";
-import { Action, Activity, CounterBasedActivity, TimeBasedActivity } from "../../models/models";
+import { Activity } from "../../models/models";
 
 @Injectable()
 export class ActivitiesPageService {
   public loading$ = new BehaviorSubject<boolean>(false);
-  public activities$ = new BehaviorSubject<(TimeBasedActivity | CounterBasedActivity)[]>([]);
+  public activities$ = new BehaviorSubject<Activity[]>([]);
 
   constructor(private dataService: DataService) {
   }
@@ -25,7 +25,7 @@ export class ActivitiesPageService {
     return  this.activities$.value.find(activity=>activity.id === activityId);
   }
 
-  updateActivity(activity: (TimeBasedActivity | CounterBasedActivity)): void {
+  updateActivity(activity: Activity): void {
     this.loading$.next(true)
     this.dataService.updateActivity(activity).pipe(
       take(1),
@@ -37,7 +37,7 @@ export class ActivitiesPageService {
     })
   }
 
-  public addActivity(activity: (TimeBasedActivity | CounterBasedActivity)): void {
+  public addActivity(activity: Activity): void {
     this.loading$.next(true);
     this.dataService.addActivity(activity).pipe(
       take(1),
@@ -49,7 +49,7 @@ export class ActivitiesPageService {
     })
   }
 
-  public toggleFavorite(activity: (TimeBasedActivity | CounterBasedActivity)): void {
+  public toggleFavorite(activity: Activity): void {
     this.loading$.next(true)
     this.dataService.updateActivity({...activity, isFavorite: !activity.isFavorite}).pipe(
       take(1),

@@ -1,13 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, combineLatest, finalize, Observable, switchMap, take, takeUntil } from "rxjs";
-import {
-  Action,
-  Activity,
-  CounterBasedAction,
-  CounterBasedActivity,
-  TimeBasedAction,
-  TimeBasedActivity, Timeline
-} from "../../models/models";
+import { BehaviorSubject, combineLatest, finalize, Observable, take, takeUntil } from "rxjs";
+import { Action, Activity } from "../../models/models";
 import { DataService } from "../../services/data.service";
 import { map } from "rxjs/operators";
 import { sortBy } from "lodash";
@@ -22,13 +15,14 @@ export class HomePageService extends DestroyObserver {
 
   private actions$ = new BehaviorSubject<Action[]>([]);
 
-  public activitiesWithTimeDone$: Observable<((TimeBasedActivity | CounterBasedActivity) & { currentDone: number })[]> = combineLatest([
+  public activitiesWithTimeDone$: Observable<(Activity & { currentTimeDone: number, currentCountDone: number })[]> = combineLatest([
     this.activitiesService.activities$,
     this.actions$
   ]).pipe(map(([activities, actions]) => {
     return activities.map(activity => ({
       ...activity,
-      currentDone: this.calculateCurrentDoneForActivity(activity.id, actions),
+      currentTimeDone: this.calculateCurrentDoneForActivity(activity.id, actions, 'timeDone'),
+      currentCountDone: this.calculateCurrentDoneForActivity(activity.id, actions, 'countDone'),
     }));
   }))
 
@@ -93,16 +87,16 @@ export class HomePageService extends DestroyObserver {
     const actions = this.actions$.value;
     const output = sortBy(actions, 'time').reduce((acc, action)=>{
       const actionDate = new Date(action.time);
-      const actionTime: number | undefined = (action as TimeBasedAction).timeDone
+      const actionTime: number | null = action.timeDone
       const activity = activities.find(activity=>activity.id===action.activityId)!;
-      return `${acc}
-      ${acc.length? '---------------' : ''}
-      ${actionDate.getHours()}:${actionDate.getMinutes()} - ${this.translatePipe.transform(activity.name)}: ${
-        actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.M'):
-          (action as CounterBasedAction).countDone
-      }`
+      acc+=`
+      `;
+      acc+= `${actionDate.getHours()}:${actionDate.getMinutes()} - ${this.translatePipe.transform(activity.name)}:`;
+      acc+=` ${actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.M'): ''}`;
+      acc+= `${actionTime && action.countDone ? ';':''}`;
+      acc+=`${action.countDone ? `${action.countDone} ${action.countDone > 20 ? 'ml': this.translatePipe.transform('SHARED.TIMES') }`:''}`;
+      return acc;
     },'')
-    console.log(output);
     await Clipboard.write({
       string: output
     });
@@ -144,10 +138,10 @@ export class HomePageService extends DestroyObserver {
     })
   }
 
-  private calculateCurrentDoneForActivity(activityId: string, actions: Action[]): number {
+  private calculateCurrentDoneForActivity(activityId: string, actions: Action[], type: 'timeDone'| 'countDone'): number {
     return actions.reduce((acc, action) => {
       if (action.activityId === activityId) {
-        return acc + (action as TimeBasedAction).timeDone || (action as CounterBasedAction).countDone;
+        return acc + ((type === 'timeDone' ? action.timeDone : action.countDone) || 0);
       }
       return acc;
     }, 0)

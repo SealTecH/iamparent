@@ -15,10 +15,10 @@
 
   <ion-list class="activities-list" [inset]="true">
     @for (activity of (activities$ | async); track activity.id){
-      <ion-item class="pointer" (click)="openEditActivityModal(activity.id)">
+      <ion-item>
         <ion-icon [name]="activity.icon" slot="start"></ion-icon>
         <ion-label class="activity-name-container">
-          <div class="activity-name">
+          <div class="activity-name pointer" (click)="openEditActivityModal(activity.id)">
             {{ (activity.name | translate)+' ('+getRecommendedValue(activity)+')' }}
           </div>
         </ion-label>

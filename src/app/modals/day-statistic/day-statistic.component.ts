@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { ModalController, Platform } from "@ionic/angular";
-import { Action, CounterBasedAction, TimeBasedAction, Timeline } from "../../models/models";
+import { Action, Timeline } from "../../models/models";
 import { IonContent, IonIcon } from "@ionic/angular/standalone";
 import { TranslatePipe } from "@ngx-translate/core";
-import { isTimeBasedAction } from "../../shared/utils/is-time-based-action";
 import { formatDuration } from "../../shared/utils/minutes-to-human-time.func";
 
 @Component({
@@ -50,18 +49,14 @@ export class DayStatisticComponent {
   }
 
   getHeight(action: Action): number {
-    if(isTimeBasedAction(action)){
+    if(action.timeDone){
       return (action.timeDone / (24 * 60)) * 100
     }
     return  2;
   }
 
-  isTimeBased(action: Action): boolean {
-    return isTimeBasedAction(action)
-  }
-
   formatDuration(action: Action): string {
-    return formatDuration(action as (TimeBasedAction | CounterBasedAction), this.translatePipe)
+    return formatDuration(action, this.translatePipe)
   }
 
 }

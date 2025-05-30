@@ -5,35 +5,17 @@ export interface Activity {
   icon: string;
   isFavorite: boolean;
   color: string;
-}
-
-export interface TimeBasedActivity extends Activity {
-  recommendedTime: number; // minutes
-}
-
-export interface CounterBasedActivity extends Activity {
-  recommendedAmount: number;
+  recommendedTime: number | null; // minutes
+  recommendedAmount: number | null;
 }
 
 export interface Action {
   id: string;
   activityId: string;
   time: number; // timestamp
-}
-
-export interface TimeBasedAction extends Action {
-  timeDone: number; // minutes
-}
-
-export interface CounterBasedAction extends Action {
-  countDone: number;
-}
-
-
-export interface Day {
-  id: string;
-  time: number;
-  actions: Action[];
+  comment: string;
+  timeDone: number | null; // minutes
+  countDone: number | null;
 }
 
 export type Timeline = (Action & { activity: Activity });

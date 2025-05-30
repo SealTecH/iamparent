@@ -1,16 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import {
-  Action, Activity,
-  CounterBasedAction,
-  CounterBasedActivity,
-  TimeBasedAction,
-  TimeBasedActivity
-} from "../../models/models";
+import { Action, Activity } from "../../models/models";
 import { DestroyObserver } from "../../shared/utils/destroy-observer";
-import { firstValueFrom, take, tap } from "rxjs";
+import { firstValueFrom, tap } from "rxjs";
 import { HomePageService } from "./home-page.service";
-import { isNil } from "lodash";
 import { ModalController } from "@ionic/angular";
 import { AddActionComponent } from "../../modals/add-action/add-action.component";
 import { Dialog } from '@capacitor/dialog';
@@ -51,16 +44,23 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     this.service.init();
   }
 
-  public isTimeBasedActivity(activity: Activity):boolean {
-     return !isNil((activity as TimeBasedActivity).recommendedTime)
-  }
+  public formatDone(activity: Activity & { currentTimeDone: number, currentCountDone: number }): string {
+    let result = '';
+    if(activity.currentTimeDone){
+      result+= amountToHours(activity.currentTimeDone, this.translatePipe);
+    }
+    if(activity.currentTimeDone && activity.currentCountDone){
+      result+='; ';
+    }
+    if(activity.currentCountDone){
+      result+=  `${activity.currentCountDone} ${ this.translatePipe.transform('SHARED.TIMES') }`
+    }
 
-  public formatDone(activity: Activity & { currentDone: number }): string {
-    return this.isTimeBasedActivity(activity) ? amountToHours(activity.currentDone, this.translatePipe): `${activity.currentDone} ${ this.translatePipe.transform('SHARED.TIMES') }`
+    return result
   }
 
   public getDetails(action: Action): string {
-     return formatDuration(action as  (TimeBasedAction | CounterBasedAction), this.translatePipe)
+     return formatDuration(action, this.translatePipe)
   }
 
   formatTime(timestamp: number): string {
@@ -69,7 +69,7 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
   }
 
   getEndTime(action:Action): string {
-    const date = new Date(action.time + ((action as TimeBasedAction).timeDone*60*1000));
+    const date = new Date(action.time + ((action.timeDone || 1)*60*1000));
     return date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: false });
   }
 
@@ -93,7 +93,8 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     }
   }
 
-  async deleteAction(actionId: string) {
+  async deleteAction(actionId: string, $event:Event) {
+    $event.stopPropagation();
     const { value } = await Dialog.confirm({
       title: this.translatePipe.transform('SHARED.CONFIRM'),
       message: this.translatePipe.transform('SHARED.DELETE_RECORD') ,
@@ -101,11 +102,11 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     if(value){
       this.service.deleteAction(actionId);
     }
-
   }
 
-  getDuration(action: Action): number {
-    return (action as TimeBasedAction).timeDone
+  async showComment(action:Action, $event:Event ){
+    $event.stopPropagation();
+
   }
 
   async openAddActionModal(activityId?: string)  {
@@ -134,9 +135,18 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     )
   }
 
-  getPercentDone(activity: (TimeBasedActivity | CounterBasedActivity) & {currentDone: number}): number {
-      const recommendedPart = (activity as TimeBasedActivity).recommendedTime ||  (activity as CounterBasedActivity).recommendedAmount
-    return  activity.currentDone /  recommendedPart
+  getPercentDone(activity: Activity & {currentTimeDone: number; currentCountDone: number;}): number {
+      let recommendedPart: number;
+    // if both recommended are present, use amount to track done %. By Liana
+      if(activity.recommendedTime &&  activity.recommendedAmount){
+       return  activity.currentCountDone / activity.recommendedAmount;
+      }else {
+        if(activity.recommendedTime){
+          return activity.currentTimeDone /   activity.recommendedTime;
+        }else {
+          return  activity.currentCountDone / activity.recommendedAmount!;
+        }
+      }
   }
 
   async openSettings(){

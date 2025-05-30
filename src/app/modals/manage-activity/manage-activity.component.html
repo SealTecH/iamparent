@@ -11,28 +11,33 @@
     </ion-item>
 
     <ion-item>
-      <ion-radio-group formControlName="isTimeBased">
-        <ion-radio [value]="false">{{'MANAGE_ACTIVITY.COUNT_BASED' | translate}}</ion-radio><br />
-        <ion-radio [value]="true">{{'MANAGE_ACTIVITY.TIME_BASED' | translate}}</ion-radio><br />
-      </ion-radio-group>
+      <ion-toggle formControlName="isTimeBased" >{{'MANAGE_ACTIVITY.TIME_BASED' | translate}}</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle formControlName="isCountBased" >{{'MANAGE_ACTIVITY.COUNT_BASED' | translate}}</ion-toggle>
     </ion-item>
 
-    <ng-container *ngIf="form.controls.isTimeBased.value;else countBased">
+    <ng-container *ngIf="form.controls.isTimeBased.value">
       <ion-item>
         <ion-input labelPlacement="floating" [label]="('MANAGE_ACTIVITY.RECOMMENDED_TIME'| translate)+' ('+('SHARED.M'| translate)+')'" formControlName="recommendedTime" type="number" min="1" max="10000" value="1"></ion-input>
       </ion-item>
     </ng-container>
 
-    <ng-template #countBased>
+    <ng-container *ngIf="form.controls.isCountBased.value">
       <ion-item>
         <ion-input labelPlacement="floating" label="{{'MANAGE_ACTIVITY.RECOMMENDED_AMOUNT'| translate}}" formControlName="recommendedAmount" type="number" min="1" max="1000" value="1"></ion-input>
       </ion-item>
-    </ng-template>
+    </ng-container>
     <ion-item>
       <app-icon-picker formControlName="icon" ></app-icon-picker>
     </ion-item>
     <ion-item>
       <color-picker formControlName="color" ></color-picker>
+    </ion-item>
+    <ion-item *ngIf="form.invalid">
+      <ion-label *ngIf="form.getError('baseNotSelected')" [color]="'warn'">Time based or Count based should be selected!</ion-label>
+      <ion-label *ngIf="form.getError('recommendedTimeRequired')" [color]="'warn'">recommended time is required!</ion-label>
+      <ion-label *ngIf="form.getError('recommendedAmountRequired')" [color]="'warn'">recommended amount is required!</ion-label>
     </ion-item>
     <ion-item>
       <ion-buttons slot="end">

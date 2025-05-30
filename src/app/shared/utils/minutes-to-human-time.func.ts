@@ -1,14 +1,17 @@
-import { CounterBasedAction, TimeBasedAction } from "../../models/models";
+import { Action } from "../../models/models";
 import { TranslatePipe } from "@ngx-translate/core";
-import { isTimeBasedAction } from "./is-time-based-action";
 
-export function formatDuration(action: (TimeBasedAction | CounterBasedAction), translatePipe:TranslatePipe):string {
-  if(isTimeBasedAction(action)){
+export function formatDuration(action: Action, translatePipe:TranslatePipe):string {
+  let output = '';
+  if(action.timeDone){
     const h = Math.floor(action.timeDone / 60);
     const m = action.timeDone % 60;
-    return amountToHours(action.timeDone,translatePipe );
+    output+= amountToHours(action.timeDone,translatePipe );
   }
-  return `${(action as  CounterBasedAction).countDone} ${translatePipe.transform('SHARED.TIMES')}`
+  if(action.countDone){
+    output+=`${action.timeDone ? '; ': ''} ${action.countDone} ${translatePipe.transform('SHARED.TIMES')}`
+  }
+  return output;
 }
 
 

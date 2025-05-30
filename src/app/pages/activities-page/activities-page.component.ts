@@ -4,9 +4,10 @@ import { AsyncPipe, CommonModule } from "@angular/common";
 import { IonicModule, ModalController } from "@ionic/angular";
 import { TranslatePipe } from "@ngx-translate/core";
 import { Dialog } from "@capacitor/dialog";
-import { Activity, CounterBasedActivity, TimeBasedActivity } from "../../models/models";
+import { Activity } from "../../models/models";
 import { ManageActivityComponent } from "../../modals/manage-activity/manage-activity.component";
 import { ActivitiesService } from "../../services/activities.service";
+import { amountToHours } from "../../shared/utils/minutes-to-human-time.func";
 
 @Component({
   selector: 'app-activities',
@@ -53,7 +54,7 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
      const { data, role } = await modal.onWillDismiss();
 
      if (role === 'confirm') {
-       this.service.addActivity(data as (TimeBasedActivity | CounterBasedActivity));
+       this.service.addActivity(data);
      }
    }
 
@@ -70,10 +71,17 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
   }
 
   getRecommendedValue(activity: Activity): string {
-    if((activity as TimeBasedActivity).recommendedTime){
-      return `${(activity as TimeBasedActivity).recommendedTime} ${this.translatePipe.transform('SHARED.M')}`
+    let result = '';
+    if(activity.recommendedTime){
+      result+= `${amountToHours(activity.recommendedTime, this.translatePipe)}`
     }
-    return `${(activity as CounterBasedActivity).recommendedAmount} ${this.translatePipe.transform('SHARED.PER_DAY')}`
+    if(activity.recommendedTime && activity.recommendedAmount){
+      result+='; '
+    }
+    if(activity.recommendedAmount){
+      result+= `${activity.recommendedAmount} ${this.translatePipe.transform('SHARED.PER_DAY')}`
+    }
+    return result;
   }
 
   async openEditActivityModal(activityId: string){
@@ -90,11 +98,11 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
-      this.service.updateActivity(data as (TimeBasedActivity | CounterBasedActivity));
+      this.service.updateActivity(data);
     }
   }
 
-  public toggleFavorite(activity: (TimeBasedActivity | CounterBasedActivity)){
+  public toggleFavorite(activity: Activity){
     this.service.toggleFavorite(activity)
   }
 

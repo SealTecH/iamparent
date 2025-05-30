@@ -18,7 +18,9 @@
     "EVENT_LASTED": "Длилось минут:",
     "EVENT_START_TIME": "Событие началось в",
     "EVENT_END_TIME": "Событие закончилось в",
-    "SELECT_ACTIVITY": "Выберите активность"
+    "SELECT_ACTIVITY": "Выберите активность",
+    "COMMENT": "Комментарий",
+    "COMMENT_PLACEHOLDER": "что думаешь о событии?"
   },
   "MANAGE_ACTIVITY": {
     "TITLE": "Управление активностью",

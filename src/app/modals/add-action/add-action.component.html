@@ -18,18 +18,21 @@
       <ion-datetime-button datetime="datetime2" ></ion-datetime-button>
     </ion-item>
 
-    <ng-container *ngIf="isSelectedActivityTimeBased();else countBased">
+    <ng-container *ngIf="isSelectedActivityTimeBased();">
      <ion-item>
        <ion-label>{{'ADD_ACTION.EVENT_END_TIME' | translate }}</ion-label>
        <ion-datetime-button datetime="datetime22" ></ion-datetime-button>
      </ion-item>
     </ng-container>
-
-    <ng-template #countBased>
+    <ng-container *ngIf="isSelectedActivityCountBased()">
       <ion-item>
         <ion-input [label]="'ADD_ACTION.EVENT_OCCURRED_TIMES'| translate" formControlName="countDone" type="number" min="1" max="1000" value="1"></ion-input>
       </ion-item>
-    </ng-template>
+    </ng-container>
+
+    <ion-item>
+      <ion-input [label]="'ADD_ACTION.COMMENT' | translate" [placeholder]="'ADD_ACTION.COMMENT_PLACEHOLDER' | translate"></ion-input>
+    </ion-item>
 
     <ion-item>
       <ion-buttons slot="end">

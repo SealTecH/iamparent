@@ -7,7 +7,8 @@ import {
   IonDatetimeButton,
   IonHeader,
   IonInput,
-  IonItem, IonLabel,
+  IonItem,
+  IonLabel,
   IonLoading,
   IonModal,
   IonSelect,
@@ -18,7 +19,7 @@ import {
 import { TranslatePipe } from "@ngx-translate/core";
 import { DataService } from "../../services/data.service";
 import { BehaviorSubject, finalize, take } from "rxjs";
-import { Action, Activity, TimeBasedActivity } from "../../models/models";
+import { Action, Activity } from "../../models/models";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { v4 as uuidv4 } from 'uuid';
 import { AsyncPipe, NgIf } from "@angular/common";
@@ -61,15 +62,15 @@ export class AddActionComponent  implements OnInit {
   minDate = this.convertToIonicString( new Date().setHours(0,0,0,0))
   maxDate = this.convertToIonicString( new Date().setHours(23 ,59,59,0) );
   loading$ = new BehaviorSubject<boolean>(false);
-
   activities$ = new BehaviorSubject<Activity[]>([]);
 
   public form = new FormGroup({
     id: new FormControl<string>(uuidv4(),{nonNullable: true}),
     activityId: new FormControl<string>('', [Validators.required]),
+    comment: new FormControl<string>('', ),
     time: new FormControl<number>(this.selectedDateService.startTime,{nonNullable: true}),
-    timeDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required, Validators.min(1)]}),
-    countDone: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
+    timeDone: new FormControl<number | null>(null,{nonNullable: false, validators: [Validators.min(1)]}),
+    countDone: new FormControl<number| null>(null,{nonNullable: false, validators: [Validators.min(1)]}),
   })
 
 
@@ -85,7 +86,6 @@ export class AddActionComponent  implements OnInit {
   ngOnInit() {
     this.minDate = this.convertToIonicString( this.selectedDateService.startTime)
     this.maxDate = this.convertToIonicString( this.selectedDateService.endTime );
-    console.log(new Date(this.selectedDateService.startTime));
 
     if(this.existingAction){
       this.form.patchValue(this.existingAction);
@@ -93,7 +93,6 @@ export class AddActionComponent  implements OnInit {
     if(this.activityId){
       this.form.controls.activityId.setValue(this.activityId);
     }
-    this.form.valueChanges.subscribe(v=>console.log(v))
     this.loadData();
   }
 
@@ -108,8 +107,8 @@ export class AddActionComponent  implements OnInit {
   }
 
   getEndTimeInIonicString(): string {
-    const modifiedDate = addMinutes(new Date(this.form.controls.time.value), this.form.controls.timeDone.value!)
-   return  this.convertToIonicString(modifiedDate.getTime());
+    const modifiedDate = addMinutes(new Date(this.form.controls.time.value), this.form.controls.timeDone.value || 0)
+    return  this.convertToIonicString(modifiedDate.getTime());
   }
 
   onEndTimeChange($event: any) {
@@ -124,16 +123,16 @@ export class AddActionComponent  implements OnInit {
 
   isSelectedActivityTimeBased():boolean {
     const selectedActivity = this.activities$.value.find(a=>a.id===this.form.controls.activityId.value);
-    return !!selectedActivity && (selectedActivity as TimeBasedActivity).recommendedTime!==undefined;
+    return !!selectedActivity && !!selectedActivity.recommendedTime;
+  }
+
+  isSelectedActivityCountBased():boolean {
+    const selectedActivity = this.activities$.value.find(a=>a.id===this.form.controls.activityId.value);
+    return !!selectedActivity && !!selectedActivity.recommendedAmount;
   }
 
   onAddAction(){
     const action = {...this.form.value};
-    if(this.isSelectedActivityTimeBased()){
-      delete action.countDone;
-    }else {
-      delete action.timeDone;
-    }
 
     return this.modalCtrl.dismiss(action, 'confirm');
   }

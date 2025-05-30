@@ -11,13 +11,13 @@ import {
   IonLabel,
   IonRadio,
   IonRadioGroup,
-  IonTitle,
+  IonTitle, IonToggle,
   IonToolbar
 } from "@ionic/angular/standalone";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { v4 as uuidv4 } from "uuid";
 import { ModalController, Platform } from "@ionic/angular";
-import { Activity, TimeBasedActivity } from "../../models/models";
+import { Activity } from "../../models/models";
 import { IconPickerComponent } from "./components/icon-picker/icon-picker.component";
 import { ColorPickerComponent } from "./components/color-picker/color-picker.component";
 
@@ -37,10 +37,10 @@ import { ColorPickerComponent } from "./components/color-picker/color-picker.com
     IonItem,
     NgIf,
     ReactiveFormsModule,
-    IonRadioGroup,
-    IonRadio,
     IconPickerComponent,
-    ColorPickerComponent
+    ColorPickerComponent,
+    IonLabel,
+    IonToggle
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -53,12 +53,22 @@ export class ManageActivityComponent implements OnInit {
     color: new FormControl<string>('',{nonNullable: true}),
     isFavorite: new FormControl<boolean>(false,{nonNullable: true}),
     name: new FormControl<string>('', [Validators.required]),
-    isTimeBased: new FormControl<boolean>(false, [Validators.required]),
+    isTimeBased: new FormControl<boolean>(false, ),
+    isCountBased: new FormControl<boolean>(false, ),
     description: new FormControl<string>('' ),
     icon: new FormControl<string>('', {nonNullable: true} ),
-    recommendedTime: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
-    recommendedAmount: new FormControl<number>(1,{nonNullable: false, validators: [Validators.required]}),
-  })
+    recommendedTime: new FormControl<number | null>(null,{nonNullable: false}),
+    recommendedAmount: new FormControl<number| null>(null,{nonNullable: false }),
+  },[(group)=>{
+    if(group.value.isTimeBased && !group.value.recommendedTime){
+      return {recommendedTimeRequired: true};
+    }
+
+    if(group.value.isCountBased && !group.value.recommendedAmount){
+      return {recommendedAmountRequired: true};
+    }
+    return (group.value.isTimeBased || group.value.isCountBased) ? null : {baseNotSelected: true}
+  }])
 
   constructor(private modalCtrl: ModalController, private platform: Platform,) {
     this.platform.backButton.subscribeWithPriority(10, () => {
@@ -69,22 +79,20 @@ export class ManageActivityComponent implements OnInit {
   ngOnInit() {
     if(this.existingActivity){
       this.form.patchValue(this.existingActivity);
-      if((this.existingActivity as TimeBasedActivity).recommendedTime){
+      if(this.existingActivity.recommendedTime){
         this.form.controls.isTimeBased.setValue(true);
-      }else {
-        this.form.controls.isTimeBased.setValue(false);
       }
+      if(this.existingActivity.recommendedAmount){
+        this.form.controls.isCountBased.setValue(true);
+      }
+      console.log(this.form);
     }
   }
 
   onAddActivity(){
     const activity = {...this.form.value};
-    if(activity.isTimeBased){
-      delete activity.recommendedAmount;
-    }else {
-      delete activity.recommendedTime;
-    }
     delete activity.isTimeBased
+    delete activity.isCountBased
 
     return this.modalCtrl.dismiss(activity, 'confirm');
   }
