@@ -2,7 +2,7 @@
   @for (photo of photoData; track photo;let i = $index) {
     <div class="photo-thumb">
       @if (!photo.loading){
-      <img [src]="photo.src!" [width]="150" [height]="150" />
+      <img [src]="photo.src!" [width]="150" [height]="150" (click)="openPreview(photo.src!)" />
       <ion-icon name="close-circle" class="remove-btn" (click)="removePhoto(i)"></ion-icon>
       }@else{
         <div style="

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-import { IonicModule } from "@ionic/angular";
+import { IonicModule, ModalController } from "@ionic/angular";
 import { ToastController } from "@ionic/angular/standalone";
 import { NgOptimizedImage } from "@angular/common";
 import { Directory, Filesystem } from '@capacitor/filesystem';
+import { PhotoViewerModalComponent } from "../photo-viewer-modal/photo-viewer-modal.component";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: 'photo-picker',
@@ -16,7 +18,9 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
     IonicModule,
     NgOptimizedImage
   ],
-  providers: [{
+  providers: [
+    TranslatePipe,
+    {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PhotoPickerComponent),
     multi: true
@@ -29,7 +33,11 @@ export class PhotoPickerComponent implements ControlValueAccessor {
   onChange = (val: string[]) => {};
   onTouched = () => {};
 
-  constructor(private toastCtrl: ToastController, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private cdr: ChangeDetectorRef,
+    private translate: TranslatePipe,
+    private modalCtrl: ModalController) {}
 
   async writeValue(value: string[]): Promise<void> {
     this.photos = value || [];
@@ -101,7 +109,7 @@ export class PhotoPickerComponent implements ControlValueAccessor {
 
     const { camera: newStatus } = await Camera.requestPermissions();
     if (newStatus !== 'granted') {
-      this.showToast('Camera or gallery access denied');
+      this.showToast(this.translate.transform('SHARED.CAMERA_ACCESS_DENIED'));
       return false;
     }
 
@@ -137,4 +145,12 @@ export class PhotoPickerComponent implements ControlValueAccessor {
     await toast.present();
   }
 
+  async openPreview(photoUrl: string) {
+    const modal = await this.modalCtrl.create({
+      component: PhotoViewerModalComponent,
+      componentProps: { photoUrl },
+      cssClass: 'photo-viewer-modal'
+    });
+    await modal.present();
+  }
 }
