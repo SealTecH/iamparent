@@ -1,0 +1,48 @@
+{
+  "HOME": {
+    "TITLE": "Today's Activities",
+    "ADD": "Add Action"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "TRACKED_ACTIVITIES": "Tracked Activities",
+    "ADD_CUSTOM": "Add Custom Activity"
+  },
+  "DEFAULT_ACTIVITIES": {
+    "SLEEP": "Sleep",
+    "POOP": "Poop"
+  },
+  "ADD_ACTION": {
+    "TITLE": "Manage Event",
+    "EVENT_OCCURRED_TIMES": "Event occurred times:",
+    "EVENT_LASTED": "Event lasted minutes:",
+    "EVENT_START_TIME": "Event start time",
+    "EVENT_END_TIME": "Event end time",
+    "SELECT_ACTIVITY": "Select Activity",
+    "COMMENT": "Comment",
+    "COMMENT_PLACEHOLDER": "type something"
+  },
+  "MANAGE_ACTIVITY": {
+    "TITLE": "Manage Activity",
+    "NAME": "Name of activity:",
+    "RECOMMENDED_TIME": "Recommended duration per day",
+    "RECOMMENDED_AMOUNT": "Recommended amount",
+    "TIME_BASED": "Track activity in time",
+    "COUNT_BASED": "Track by counting"
+  },
+  "ACTIVITIES": {
+    "TITLE": "Manage Activities",
+    "DELETE_WARNING": "Removing of this activity also will remove all connected actions"
+  },
+  "SHARED": {
+    "H": "h.",
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "TIMES": "times",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "DELETE_RECORD": "Are you sure you want to delete the record?",
+    "M": "m.",
+    "PER_DAY": "times per day"
+  }
+}

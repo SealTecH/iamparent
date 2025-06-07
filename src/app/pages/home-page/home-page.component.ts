@@ -12,6 +12,7 @@ import { SelectedDateService } from "../../services/selected-date.service";
 import { map } from "rxjs/operators";
 import { DayStatisticComponent } from "../../modals/day-statistic/day-statistic.component";
 import { amountToHours, formatDuration } from "../../shared/utils/minutes-to-human-time.func";
+import { isNil } from "lodash";
 
 @Component({
   selector: 'home-page',
@@ -52,8 +53,8 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     if(activity.currentTimeDone && activity.currentCountDone){
       result+='; ';
     }
-    if(activity.currentCountDone){
-      result+=  `${activity.currentCountDone} ${ this.translatePipe.transform('SHARED.TIMES') }`
+    if(!isNil(activity.currentCountDone)){
+      result+= `${activity.currentCountDone} ${ this.translatePipe.transform('SHARED.TIMES') }`
     }
 
     return result

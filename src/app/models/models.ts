@@ -16,6 +16,7 @@ export interface Action {
   comment: string;
   timeDone: number | null; // minutes
   countDone: number | null;
+  linkedPhotoUrls: string[];
 }
 
 export type Timeline = (Action & { activity: Activity });

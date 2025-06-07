@@ -1,0 +1,25 @@
+<div class="photo-grid">
+  @for (photo of photoData; track photo;let i = $index) {
+    <div class="photo-thumb">
+      @if (!photo.loading){
+      <img [src]="photo.src!" [width]="150" [height]="150" />
+      <ion-icon name="close-circle" class="remove-btn" (click)="removePhoto(i)"></ion-icon>
+      }@else{
+        <div style="
+      width: 100%;
+      height: 200px;
+      background: #eee;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      animation: pulse 1.5s infinite;
+    "></div>
+      }
+    </div>
+  }
+  @if(photoData.length<6){
+    <div class="photo-thumb add"  (click)="addPhoto()">
+      <ion-icon name="add"></ion-icon>
+      <span>add photo</span>
+    </div>
+  }
+</div>

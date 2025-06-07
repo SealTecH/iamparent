@@ -1,27 +1,24 @@
 <ion-content fullscreen (keydown.escape)="goBack()">
-  <div class="day-chart">
 
-    <!-- Вертикальные часы и пунктир -->
-    @for (h of hours; track h) {
-      <div class="hour-line" [style.top.%]="h * (100 / 24)">
-        <div class="hour-label">{{ h }}:00</div>
-        <div class="dashed-line"></div>
-      </div>
-    }
+  <div #zoomArea class="timeline-container">
 
-    <!-- Карточки действий -->
-    @for (action of timeline; track action.id) {
+        @for (h of hours; track h) {
+          <div class="hour" [style.height.px]="getHourHeight()">
+            {{ h }}:00
+          </div>
+        }
+
+
+    @for(action of timeline; track action.id){
       <div
-        class="action-block"
-        [style.top.%]="getTop(action)"
-        [style.height.%]="getHeight(action)"
+        class="action"
+        [style.top.px]="getTop(action)"
+        [style.height.px]="getHeight(action)"
         [style.background]="action.activity.color"
       >
-        <ion-icon [name]="action.activity.icon"></ion-icon>
         <span class="name">{{ action.activity.name | translate }}</span>
         <span class="duration">{{ formatDuration(action) }}</span>
       </div>
     }
-
   </div>
 </ion-content>

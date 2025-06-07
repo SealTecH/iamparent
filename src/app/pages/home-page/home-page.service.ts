@@ -95,6 +95,9 @@ export class HomePageService extends DestroyObserver {
       acc+=` ${actionTime ? actionTime+' '+this.translatePipe.transform('SHARED.M'): ''}`;
       acc+= `${actionTime && action.countDone ? ';':''}`;
       acc+=`${action.countDone ? `${action.countDone} ${action.countDone > 20 ? 'ml': this.translatePipe.transform('SHARED.TIMES') }`:''}`;
+      if(action.comment){
+        acc+=`; comment: ${action.comment}`
+      }
       return acc;
     },'')
     await Clipboard.write({

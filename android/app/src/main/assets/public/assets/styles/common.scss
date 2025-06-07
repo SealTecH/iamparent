@@ -1,0 +1,25 @@
+@mixin generate-padding(){
+  $sizes: 20;
+  @for $size from 1 through $sizes {
+    .pt-#{$size} {
+      padding-top: #{$size}px;
+    }
+    .pb-#{$size} {
+      padding-bottom: #{$size}px;
+    }
+
+    .pl-#{$size} {
+      padding-left: #{$size}px;
+    }
+
+    .pr-#{$size} {
+      padding-right: #{$size}px;
+    }
+  }
+}
+
+@include generate-padding();
+
+.pointer {
+  cursor: pointer;
+}

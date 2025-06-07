@@ -1,0 +1,213 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.ionic.starter"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:14:5-67
+11-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:14:22-64
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:15:5-80
+12-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:15:22-77
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:16:5-81
+13-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:16:22-78
+14
+15    <queries>
+15-->[:capacitor-camera] C:\WORK\iamparent\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-11:15
+16        <intent>
+16-->[:capacitor-camera] C:\WORK\iamparent\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-10:18
+17            <action android:name="android.media.action.IMAGE_CAPTURE" />
+17-->[:capacitor-camera] C:\WORK\iamparent\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-73
+17-->[:capacitor-camera] C:\WORK\iamparent\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:21-70
+18        </intent>
+19    </queries>
+20
+21    <uses-permission android:name="android.permission.VIBRATE" />
+21-->[:capacitor-haptics] C:\WORK\iamparent\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-66
+21-->[:capacitor-haptics] C:\WORK\iamparent\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-63
+22    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+22-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-81
+22-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-78
+23    <uses-permission android:name="android.permission.WAKE_LOCK" />
+23-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-68
+23-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:22-65
+24    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+24-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-77
+24-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:22-74
+25
+26    <permission
+26-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+27        android:name="io.ionic.starter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+27-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+28        android:protectionLevel="signature" />
+28-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+29
+30    <uses-permission android:name="io.ionic.starter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+30-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+30-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+31
+32    <application
+32-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:5-13:19
+33        android:allowBackup="true"
+33-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:18-44
+34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+34-->[androidx.core:core:1.15.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+35        android:debuggable="true"
+36        android:extractNativeLibs="false"
+37        android:icon="@mipmap/ic_launcher"
+37-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:45-79
+38        android:label="@string/app_name"
+38-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:80-112
+39        android:roundIcon="@mipmap/ic_launcher_round"
+39-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:113-158
+40        android:supportsRtl="true"
+40-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:159-185
+41        android:theme="@style/AppTheme"
+41-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:186-217
+42        android:usesCleartextTraffic="true" >
+42-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:3:218-253
+43        <activity
+43-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:9-9:20
+44            android:name="io.ionic.starter.MainActivity"
+44-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:247-275
+45            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
+45-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:19-146
+46            android:exported="true"
+46-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:147-170
+47            android:label="@string/title_activity_main"
+47-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:171-214
+48            android:launchMode="singleTask"
+48-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:215-246
+49            android:theme="@style/AppTheme.NoActionBarLaunch" >
+49-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:4:276-325
+50            <intent-filter>
+50-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:5:13-8:29
+51                <action android:name="android.intent.action.MAIN" />
+51-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:6:17-69
+51-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:6:25-66
+52
+53                <category android:name="android.intent.category.LAUNCHER" />
+53-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:7:17-77
+53-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:7:27-74
+54            </intent-filter>
+55        </activity>
+56
+57        <provider
+58            android:name="androidx.core.content.FileProvider"
+58-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:10:131-180
+59            android:authorities="io.ionic.starter.fileprovider"
+59-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:10:19-70
+60            android:exported="false"
+60-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:10:71-95
+61            android:grantUriPermissions="true" >
+61-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:10:96-130
+62            <meta-data
+62-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:11:13-112
+63                android:name="android.support.FILE_PROVIDER_PATHS"
+63-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:11:24-74
+64                android:resource="@xml/file_paths" />
+64-->C:\WORK\iamparent\android\app\src\main\AndroidManifest.xml:11:75-109
+65        </provider>
+66
+67        <receiver android:name="com.capacitorjs.plugins.localnotifications.TimedNotificationPublisher" />
+67-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-106
+67-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:19-103
+68        <receiver android:name="com.capacitorjs.plugins.localnotifications.NotificationDismissReceiver" />
+68-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:9-107
+68-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:19-104
+69        <receiver
+69-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:9-23:20
+70            android:name="com.capacitorjs.plugins.localnotifications.LocalNotificationRestoreReceiver"
+70-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-103
+71            android:directBootAware="true"
+71-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-43
+72            android:exported="false" >
+72-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-37
+73            <intent-filter>
+73-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-22:29
+74                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+74-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:17-86
+74-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:25-83
+75                <action android:name="android.intent.action.BOOT_COMPLETED" />
+75-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:17-79
+75-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:25-76
+76                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+76-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:17-82
+76-->[:capacitor-local-notifications] C:\WORK\iamparent\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:25-79
+77            </intent-filter>
+78        </receiver>
+79
+80        <provider
+80-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+81            android:name="androidx.startup.InitializationProvider"
+81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+82            android:authorities="io.ionic.starter.androidx-startup"
+82-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+83            android:exported="false" >
+83-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+84            <meta-data
+84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+85                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+86                android:value="androidx.startup" />
+86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\smdom\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+87            <meta-data
+87-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\smdom\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+88                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+88-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\smdom\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+89                android:value="androidx.startup" />
+89-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\smdom\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+90            <meta-data
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+91                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+92                android:value="androidx.startup" />
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+93        </provider>
+94
+95        <receiver
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+96            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+97            android:directBootAware="false"
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+98            android:enabled="true"
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+99            android:exported="true"
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+100            android:permission="android.permission.DUMP" >
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+101            <intent-filter>
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+102                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+103            </intent-filter>
+104            <intent-filter>
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+105                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+106            </intent-filter>
+107            <intent-filter>
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+108                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+109            </intent-filter>
+110            <intent-filter>
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+111                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\smdom\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+112            </intent-filter>
+113        </receiver>
+114    </application>
+115
+116</manifest>

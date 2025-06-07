@@ -1,0 +1,48 @@
+{
+  "HOME": {
+    "TITLE": "Дела на день",
+    "ADD": "Добавить событие"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "TRACKED_ACTIVITIES": "Tracked Activities",
+    "ADD_CUSTOM": "Add Custom Activity"
+  },
+  "DEFAULT_ACTIVITIES": {
+    "SLEEP": "Сон",
+    "POOP": "Туалет"
+  },
+  "ADD_ACTION": {
+    "TITLE": "Управление событем",
+    "EVENT_OCCURRED_TIMES": "Событие произошло раз:",
+    "EVENT_LASTED": "Длилось минут:",
+    "EVENT_START_TIME": "Событие началось в",
+    "EVENT_END_TIME": "Событие закончилось в",
+    "SELECT_ACTIVITY": "Выберите активность",
+    "COMMENT": "Комментарий",
+    "COMMENT_PLACEHOLDER": "что думаешь о событии?"
+  },
+  "MANAGE_ACTIVITY": {
+    "TITLE": "Управление активностью",
+    "NAME": "Название активности:",
+    "RECOMMENDED_TIME": "Рекомендуемое время в день",
+    "RECOMMENDED_AMOUNT": "Рекомендуемое количество в день",
+    "TIME_BASED": "Активность измеряется во времени",
+    "COUNT_BASED": "Активность считается по разам в день"
+  },
+  "ACTIVITIES": {
+    "TITLE": "Управление Событиями",
+    "DELETE_WARNING": "Удаление этой активности также удалит все связанные с ней события"
+  },
+  "SHARED": {
+    "H": "ч.",
+    "LOADING": "Загрузка...",
+    "TIMES": "раз",
+    "SAVE": "Сохранить",
+    "CANCEL": "Отмена",
+    "CONFIRM": "Подтверждение",
+    "DELETE_RECORD": "Вы действительно хотите удалить эту запись?",
+    "M": "м.",
+    "PER_DAY": "раз в день"
+  }
+}

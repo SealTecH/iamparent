@@ -1,0 +1,8 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "iamparent",
+	"webDir": "www",
+	"server": {
+		"url": "http://192.168.1.17:8100"
+	}
+}

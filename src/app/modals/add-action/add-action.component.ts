@@ -26,6 +26,7 @@ import { AsyncPipe, NgIf } from "@angular/common";
 import { ModalController, Platform } from "@ionic/angular";
 import { SelectedDateService } from "../../services/selected-date.service";
 import { addMinutes } from "date-fns";
+import { PhotoPickerComponent } from "./components/photo-picker/photo-picker.component";
 
 @Component({
   selector: 'app-add-action',
@@ -52,7 +53,8 @@ import { addMinutes } from "date-fns";
     IonSelect,
     IonSelectOption,
     IonInput,
-    IonLabel
+    IonLabel,
+    PhotoPickerComponent
   ]
 })
 export class AddActionComponent  implements OnInit {
@@ -67,10 +69,11 @@ export class AddActionComponent  implements OnInit {
   public form = new FormGroup({
     id: new FormControl<string>(uuidv4(),{nonNullable: true}),
     activityId: new FormControl<string>('', [Validators.required]),
-    comment: new FormControl<string>('', ),
+    comment: new FormControl<string>(''),
     time: new FormControl<number>(this.selectedDateService.startTime,{nonNullable: true}),
     timeDone: new FormControl<number | null>(null,{nonNullable: false, validators: [Validators.min(1)]}),
     countDone: new FormControl<number| null>(null,{nonNullable: false, validators: [Validators.min(1)]}),
+    linkedPhotoUrls:  new FormControl<string[]>([]),
   })
 
 
@@ -133,7 +136,7 @@ export class AddActionComponent  implements OnInit {
 
   onAddAction(){
     const action = {...this.form.value};
-
+    console.log(this.form.value);
     return this.modalCtrl.dismiss(action, 'confirm');
   }
 

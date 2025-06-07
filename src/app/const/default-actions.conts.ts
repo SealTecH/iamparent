@@ -7,7 +7,8 @@ export const DEFAULT_ACTIONS: Action[] = [
     time: new Date().setHours(8, 0, 0, 0),
     timeDone: 120,
     countDone: null,
-    comment: 'sleep like a baby'
+    comment: 'sleep like a baby',
+    linkedPhotoUrls:[]
   },
   {
     id: 'DEFAULT_ACTION_POOP',
@@ -15,6 +16,7 @@ export const DEFAULT_ACTIONS: Action[] = [
     time: new Date().setHours(9, 15, 0, 0),
     countDone: 1,
     timeDone: null,
-    comment: ''
+    comment: '',
+    linkedPhotoUrls:[]
   }
 ]
