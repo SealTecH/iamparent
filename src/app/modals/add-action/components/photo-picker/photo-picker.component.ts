@@ -100,6 +100,7 @@ export class PhotoPickerComponent implements ControlValueAccessor {
 
   removePhoto(index: number) {
     this.photos.splice(index, 1);
+    this.photoData.splice(index, 1);
     this.onChange(this.photos);
   }
 

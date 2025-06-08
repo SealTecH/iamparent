@@ -43,6 +43,7 @@
     "CONFIRM": "Подтверждение",
     "DELETE_RECORD": "Вы действительно хотите удалить эту запись?",
     "M": "м.",
+    "CAMERA_ACCESS_DENIED": "Camera or gallery access denied",
     "PER_DAY": "раз в день"
   }
 }

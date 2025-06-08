@@ -43,6 +43,7 @@
     "CONFIRM": "Confirm",
     "DELETE_RECORD": "Are you sure you want to delete the record?",
     "M": "m.",
-    "PER_DAY": "times per day"
+    "PER_DAY": "times per day",
+    "CAMERA_ACCESS_DENIED": "Camera or gallery access denied"
   }
 }
