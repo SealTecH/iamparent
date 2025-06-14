@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'activities',
     loadComponent: () => import('./pages/activities-page/activities-page.component').then(mod => mod.ActivitiesPageComponent),
   },
+  {
+    path: 'settings',
+    loadComponent: () => import('./pages/settings-page/settings-page.component').then(mod => mod.SettingsPageComponent),
+  },
 ];
 
 @NgModule({

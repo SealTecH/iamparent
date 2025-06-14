@@ -2,16 +2,20 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { NgIf } from "@angular/common";
 import {
+  IonAccordion,
+  IonAccordionGroup,
   IonButton,
   IonButtons,
   IonContent,
+  IonDatetime,
+  IonDatetimeButton,
   IonHeader,
   IonInput,
   IonItem,
   IonLabel,
-  IonRadio,
-  IonRadioGroup,
-  IonTitle, IonToggle,
+  IonModal,
+  IonTitle,
+  IonToggle,
   IonToolbar
 } from "@ionic/angular/standalone";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -20,6 +24,7 @@ import { ModalController, Platform } from "@ionic/angular";
 import { Activity } from "../../models/models";
 import { IconPickerComponent } from "./components/icon-picker/icon-picker.component";
 import { ColorPickerComponent } from "./components/color-picker/color-picker.component";
+import { convertToIonicString } from "../../shared/utils/ionic-time.utils";
 
 @Component({
   selector: 'app-manage-activity',
@@ -40,7 +45,12 @@ import { ColorPickerComponent } from "./components/color-picker/color-picker.com
     IconPickerComponent,
     ColorPickerComponent,
     IonLabel,
-    IonToggle
+    IonToggle,
+    IonDatetime,
+    IonModal,
+    IonDatetimeButton,
+    IonAccordion,
+    IonAccordionGroup
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -56,6 +66,10 @@ export class ManageActivityComponent implements OnInit {
     isTimeBased: new FormControl<boolean>(false, ),
     isCountBased: new FormControl<boolean>(false, ),
     description: new FormControl<string>('' ),
+    notifications: new FormGroup({
+      enabled: new FormControl(false),
+      time: new FormControl(0),
+    }),
     icon: new FormControl<string>('', {nonNullable: true} ),
     recommendedTime: new FormControl<number | null>(null,{nonNullable: false}),
     recommendedAmount: new FormControl<number| null>(null,{nonNullable: false }),
@@ -85,7 +99,6 @@ export class ManageActivityComponent implements OnInit {
       if(this.existingActivity.recommendedAmount){
         this.form.controls.isCountBased.setValue(true);
       }
-      console.log(this.form);
     }
   }
 
@@ -99,5 +112,16 @@ export class ManageActivityComponent implements OnInit {
 
   goBack(){
     return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  onNotificationTimeChange($event: any) {
+    const time = new Date($event.detail.value);
+    const value = (time.getHours()*3600 + time.getMinutes()*60)*1000
+    this.form.controls.notifications.controls.time.setValue(value);
+  }
+
+ getTimeInIonicString(): string {
+    const modifiedDate = new Date().setHours(0,0,0,0) + (this.form.controls.notifications.controls.time.value || 0)
+    return convertToIonicString(modifiedDate);
   }
 }

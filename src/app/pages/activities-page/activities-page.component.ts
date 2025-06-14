@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivitiesPageService } from "./activities-page.service";
 import { AsyncPipe, CommonModule } from "@angular/common";
 import { IonicModule, ModalController } from "@ionic/angular";
@@ -6,7 +6,6 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { Dialog } from "@capacitor/dialog";
 import { Activity } from "../../models/models";
 import { ManageActivityComponent } from "../../modals/manage-activity/manage-activity.component";
-import { ActivitiesService } from "../../services/activities.service";
 import { amountToHours } from "../../shared/utils/minutes-to-human-time.func";
 
 @Component({
@@ -26,15 +25,14 @@ import { amountToHours } from "../../shared/utils/minutes-to-human-time.func";
     TranslatePipe
   ]
 })
-export class ActivitiesPageComponent implements OnInit, OnDestroy {
+export class ActivitiesPageComponent implements OnInit {
   public readonly activities$ = this.service.activities$;
   public readonly loading$ = this.service.loading$;
 
   constructor(
     private service: ActivitiesPageService,
     private modalCtrl: ModalController,
-    private translatePipe: TranslatePipe,
-    private activitiesService: ActivitiesService
+    private translatePipe: TranslatePipe
   ) {
 
   }
@@ -104,10 +102,6 @@ export class ActivitiesPageComponent implements OnInit, OnDestroy {
 
   public toggleFavorite(activity: Activity){
     this.service.toggleFavorite(activity)
-  }
-
-  ngOnDestroy(){
-    this.activitiesService.loadActivities().subscribe()
   }
 
 }

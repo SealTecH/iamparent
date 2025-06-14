@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Action, Activity } from "../models/models";
+import { Action, Activity, Settings } from "../models/models";
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DEFAULT_ACTIVITIES } from "../const/default-activities.const";
 import { environment } from "../../environments/environment";
 import { DEFAULT_ACTIONS } from "../const/default-actions.conts";
+import { DEFAULT_SETTINGS } from "../const/default-settings.const";
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -121,5 +122,13 @@ export class DataService {
         return from(this.storage.set(`actions`, filtered));
       })
     );
+  }
+
+  getSettings():Observable<Settings> {
+    return this.waitForStorage(() => this.storage.get('settings').then(a => a || DEFAULT_SETTINGS))
+  }
+
+  updateSettings(settings: Settings):Observable<Settings> {
+    return this.waitForStorage(() => this.storage.set('settings',settings));
   }
 }

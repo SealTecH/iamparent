@@ -28,12 +28,31 @@
         <ion-input labelPlacement="floating" label="{{'MANAGE_ACTIVITY.RECOMMENDED_AMOUNT'| translate}}" formControlName="recommendedAmount" type="number" min="1" max="1000" value="1"></ion-input>
       </ion-item>
     </ng-container>
+    <ion-accordion-group>
+      <ion-accordion>
+        <ion-item slot="header">
+          <ion-label>{{ 'MANAGE_ACTIVITY.PICK_ICON'| translate}}</ion-label>
+        </ion-item>
+        <app-icon-picker slot="content" formControlName="icon" ></app-icon-picker>
+      </ion-accordion>
+      <ion-accordion>
+        <ion-item slot="header">
+          <ion-label>{{ 'MANAGE_ACTIVITY.PICK_COLOR'| translate}}</ion-label>
+        </ion-item>
+        <color-picker  slot="content" formControlName="color" ></color-picker>
+      </ion-accordion>
+    </ion-accordion-group>
     <ion-item>
-      <app-icon-picker formControlName="icon" ></app-icon-picker>
+      <ion-toggle [formControl]="form.controls.notifications.controls.enabled" >
+        {{ 'MANAGE_ACTIVITY.NOTIFICATIONS' | translate}}
+      </ion-toggle>
     </ion-item>
-    <ion-item>
-      <color-picker formControlName="color" ></color-picker>
-    </ion-item>
+    @if(form.controls.notifications.controls.enabled.value){
+      <ion-item>
+        <ion-label>{{ 'MANAGE_ACTIVITY.NOTIFICATION_TIME' | translate }}</ion-label>
+        <ion-datetime-button datetime="datetime33" ></ion-datetime-button>
+      </ion-item>
+    }
     <ion-item *ngIf="form.invalid">
       <ion-label *ngIf="form.getError('baseNotSelected')" [color]="'warn'">Time based or Count based should be selected!</ion-label>
       <ion-label *ngIf="form.getError('recommendedTimeRequired')" [color]="'warn'">recommended time is required!</ion-label>
@@ -50,4 +69,19 @@
   </form>
 </ion-content>
 
-
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime33"
+                  presentation="time"
+                  [formatOptions]="{
+        time: {
+          hour: '2-digit',
+          minute: '2-digit',
+        },
+      }"
+                  [value]="getTimeInIonicString()"
+                  [hourCycle]="'h23'"
+                  (ionChange)="onNotificationTimeChange($event)"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>

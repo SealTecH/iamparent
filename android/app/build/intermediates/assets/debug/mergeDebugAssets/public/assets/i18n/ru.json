@@ -1,12 +1,19 @@
 {
   "HOME": {
     "TITLE": "Дела на день",
-    "ADD": "Добавить событие"
+    "ADD": "Добавить событие",
+    "ACTIVITIES": "Избранные Активности"
   },
   "SETTINGS": {
-    "TITLE": "Settings",
-    "TRACKED_ACTIVITIES": "Tracked Activities",
-    "ADD_CUSTOM": "Add Custom Activity"
+    "TITLE": "Настройки",
+    "INACTIVITY_REMINDERS": "Напоминания",
+    "REMINDER_INTERVAL": "Время до напоминания (минут)",
+    "DATE_SETTINGS": "Настройки даты",
+    "APM": "12 часовой формат",
+    "THEME": "Тема",
+    "LIGHT": "Светлая",
+    "DARK": "Тёмная",
+    "LANGUAGE": "Язык"
   },
   "DEFAULT_ACTIVITIES": {
     "SLEEP": "Сон",
@@ -28,7 +35,11 @@
     "RECOMMENDED_TIME": "Рекомендуемое время в день",
     "RECOMMENDED_AMOUNT": "Рекомендуемое количество в день",
     "TIME_BASED": "Активность измеряется во времени",
-    "COUNT_BASED": "Активность считается по разам в день"
+    "COUNT_BASED": "Активность считается по разам в день",
+    "NOTIFICATIONS": "Слать уведомление, если активность не завершена",
+    "NOTIFICATION_TIME":"Во сколько слать уведомление, если активность не выполнена",
+    "PICK_COLOR": "Выбери цвет для активности",
+    "PICK_ICON": "Выбери иконку для активности"
   },
   "ACTIVITIES": {
     "TITLE": "Управление Событиями",
@@ -44,6 +55,13 @@
     "DELETE_RECORD": "Вы действительно хотите удалить эту запись?",
     "M": "м.",
     "CAMERA_ACCESS_DENIED": "Camera or gallery access denied",
-    "PER_DAY": "раз в день"
+    "PER_DAY": "раз в день",
+    "NOTIFICATIONS": "Нотификации"
+  },
+  "NOTIFICATIONS": {
+    "REMINDER_TITLE": "Возможно, время записать активность",
+    "REMINDER_BODY":  "Похоже, вы забыли записать активность вашего ребёнка!",
+    "ACTIVITY_REMINDER_TITLE": "Активность {{name}} ещё не завершена!",
+    "ACTIVITY_REMINDER_BODY": "Не забудьбте выполнить активность - {{name}}"
   }
 }

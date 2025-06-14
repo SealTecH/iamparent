@@ -25,10 +25,18 @@ import { isNil } from "lodash";
 export class HomePageComponent extends DestroyObserver implements OnInit, OnDestroy  {
   public readonly activities$ = this.service.activitiesWithTimeDone$.pipe(
     map(activities => {
-      return activities.filter(activity=> activity.isFavorite)
-    }));
+      return activities.filter(activity=> activity.isFavorite).map((activity)=>({
+        ...activity,
+        percentageDone: this.getPercentDone(activity)
+      }))
+    }))
+
+  public doneCount$ = this.activities$.pipe(map((activities) => {
+    return activities.filter(a=>a.percentageDone >=1).length
+  }))
+
   public readonly loading$ = this.service.loading$;
-  public readonly timeline$ = this.service.timeline$.pipe(tap(r=>console.log(r)));
+  public readonly timeline$ = this.service.timeline$
 
 
 
@@ -137,7 +145,6 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
   }
 
   getPercentDone(activity: Activity & {currentTimeDone: number; currentCountDone: number;}): number {
-      let recommendedPart: number;
     // if both recommended are present, use amount to track done %. By Liana
       if(activity.recommendedTime &&  activity.recommendedAmount){
        return  activity.currentCountDone / activity.recommendedAmount;
@@ -151,7 +158,7 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
   }
 
   async openSettings(){
-
+    this.router.navigate(['/settings'])
   }
 
   async copyToClipboard(){
@@ -175,4 +182,5 @@ export class HomePageComponent extends DestroyObserver implements OnInit, OnDest
     await modal.present();
   }
 
+  protected readonly length = length;
 }

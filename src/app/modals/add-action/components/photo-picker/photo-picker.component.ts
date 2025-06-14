@@ -15,8 +15,7 @@ import { TranslatePipe } from "@ngx-translate/core";
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonicModule,
-    NgOptimizedImage
+    IonicModule
   ],
   providers: [
     TranslatePipe,

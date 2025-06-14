@@ -7,6 +7,10 @@ export interface Activity {
   color: string;
   recommendedTime: number | null; // minutes
   recommendedAmount: number | null;
+  notifications: {
+    enabled: boolean,
+    time: number | undefined
+  }
 }
 
 export interface Action {
@@ -20,3 +24,23 @@ export interface Action {
 }
 
 export type Timeline = (Action & { activity: Activity });
+
+export interface NotificationSettings {
+  activityReminderEnabled: boolean;
+  activityReminderInterval: number; // minutes
+}
+
+export interface DateSettings {
+  apm: boolean;
+}
+
+export interface ThemeSettings {
+  theme:'dark' | 'light';
+}
+
+export interface Settings {
+  notificationSettings: NotificationSettings;
+  language: string;
+  dateSettings: DateSettings;
+  themeSettings: ThemeSettings;
+}

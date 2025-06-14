@@ -1,24 +1,24 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "../../services/data.service";
-import { BehaviorSubject, finalize, switchMap, take } from "rxjs";
+import { BehaviorSubject, finalize, take } from "rxjs";
 import { Activity } from "../../models/models";
+import { ActivitiesService } from "../../services/activities.service";
 
 @Injectable()
 export class ActivitiesPageService {
   public loading$ = new BehaviorSubject<boolean>(false);
-  public activities$ = new BehaviorSubject<Activity[]>([]);
+  public activities$ = this.activitiesService.activities$;
 
-  constructor(private dataService: DataService) {
+  constructor(
+    private activitiesService: ActivitiesService
+  ) {
   }
 
   loadActivities(): void {
     this.loading$.next(true);
-    this.dataService.getActivities().pipe(
+    this.activitiesService.loadActivities().pipe(
       take(1),
       finalize(() => this.loading$.next(false))
-    ).subscribe(activities => {
-      this.activities$.next(activities)
-    });
+    ).subscribe();
   }
 
   getActivityImmediately(activityId: string): Activity | undefined {
@@ -27,51 +27,38 @@ export class ActivitiesPageService {
 
   updateActivity(activity: Activity): void {
     this.loading$.next(true)
-    this.dataService.updateActivity(activity).pipe(
+    this.activitiesService.updateActivity(activity).pipe(
       take(1),
       finalize(() => {
         this.loading$.next(false)
       })
-    ).subscribe(()=>{
-      this.loadActivities()
-    })
+    ).subscribe()
   }
 
   public addActivity(activity: Activity): void {
     this.loading$.next(true);
-    this.dataService.addActivity(activity).pipe(
+    this.activitiesService.addActivity(activity).pipe(
       take(1),
       finalize(() => {
         this.loading$.next(false)
       })
-    ).subscribe(()=>{
-      this.activities$.next([...this.activities$.value, activity]);
-    })
+    ).subscribe()
   }
 
   public toggleFavorite(activity: Activity): void {
     this.loading$.next(true)
-    this.dataService.updateActivity({...activity, isFavorite: !activity.isFavorite}).pipe(
+    this.activitiesService.updateActivity({...activity, isFavorite: !activity.isFavorite}).pipe(
       take(1),
       finalize(() => {
         this.loading$.next(false)
       })
-    ).subscribe(()=>{
-      this.loadActivities()
-    })
+    ).subscribe()
   }
-
-
 
   deleteActivity(id: string): void {
     this.loading$.next(true);
-    this.dataService.deleteActivity(id).pipe(
-      switchMap(()=>this.dataService.deleteActionsByActivityId(id)),
+    this.activitiesService.deleteActivity(id).pipe(
       finalize(() => this.loading$.next(false))
-    ).subscribe(() => {
-      const remainingActivities = this.activities$.value;
-      remainingActivities.splice(this.activities$.value.findIndex(activity=>activity.id===id),1)
-      this.activities$.next(remainingActivities);
-    });
+    ).subscribe();
   }
 }

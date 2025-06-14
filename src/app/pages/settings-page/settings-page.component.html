@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" default-href="#"></ion-back-button>
+    <ion-title>{{'SETTINGS.TITLE' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <h2>{{ 'SHARED.NOTIFICATIONS' | translate }}</h2>
+   <ion-item>
+     <ion-toggle
+       [formControl]="form.controls.notificationSettings.controls.activityReminderEnabled"
+     >
+       {{ 'SETTINGS.INACTIVITY_REMINDERS' | translate }}
+     </ion-toggle>
+   </ion-item>
+    @if(form.controls.notificationSettings.controls.activityReminderEnabled.value){
+      <ion-item>
+        <ion-input
+          type="number"
+          [disabled]="!form.controls.notificationSettings.controls.activityReminderEnabled.value"
+          [formControl]="form.controls.notificationSettings.controls.activityReminderInterval"
+          [label]="'SETTINGS.REMINDER_INTERVAL' | translate">
+        </ion-input>
+      </ion-item>
+    }
+
+    <h2>{{ 'SETTINGS.DATE_SETTINGS' | translate }}</h2>
+    <ion-item>
+      <ion-toggle
+        [formControl]="form.controls.dateSettings.controls.apm"
+      >
+        {{ 'SETTINGS.APM' | translate }}
+      </ion-toggle>
+    </ion-item>
+
+    <h2>{{ 'SETTINGS.THEME' | translate }}</h2>
+    <ion-item>
+      <ion-select
+        [formControl]="form.controls.themeSettings.controls.theme"
+      >
+        <ion-select-option value="dark">{{'SETTINGS.DARK' | translate}}</ion-select-option>
+        <ion-select-option value="light">{{'SETTINGS.LIGHT' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <h2>{{ 'SETTINGS.LANGUAGE' | translate }}</h2>
+    <ion-item>
+      <ion-select formControlName="language">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ru">Русский</ion-select-option>
+        <!-- добавь другие языки при необходимости -->
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>

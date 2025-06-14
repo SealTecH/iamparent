@@ -60,7 +60,7 @@
           minute: '2-digit',
         },
       }"
-                  [value]="convertToIonicString(this.form.controls.time.value)"
+                  [value]="convertWrapper(this.form.controls.time.value)"
                   [min]="minDate"
                   [max]="maxDate"
                   [hourCycle]="'h23'"

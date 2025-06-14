@@ -9,7 +9,11 @@ export const DEFAULT_ACTIVITIES: Activity[] = [
     recommendedTime: 60* 16, // 16 hours
     recommendedAmount: null,
     isFavorite: true,
-    color: '#BA68C8'
+    color: '#BA68C8',
+    notifications: {
+      enabled: false,
+      time: undefined
+    }
   },
   {
     id: 'POOP',
@@ -19,7 +23,11 @@ export const DEFAULT_ACTIVITIES: Activity[] = [
     recommendedAmount: 1,
     recommendedTime: null,
     isFavorite: true,
-    color: '#A1887F'
+    color: '#A1887F',
+    notifications: {
+      enabled: false,
+      time: undefined
+    }
   },
 
 ]

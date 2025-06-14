@@ -1,12 +1,19 @@
 {
   "HOME": {
     "TITLE": "Today's Activities",
-    "ADD": "Add Action"
+    "ADD": "Add Action",
+    "ACTIVITIES": "Favorite Activities"
   },
   "SETTINGS": {
     "TITLE": "Settings",
-    "TRACKED_ACTIVITIES": "Tracked Activities",
-    "ADD_CUSTOM": "Add Custom Activity"
+    "INACTIVITY_REMINDERS": "Inactivity Reminders",
+    "REMINDER_INTERVAL": "Time to reminder (minutes)",
+    "DATE_SETTINGS": "Date Settings",
+    "APM": "APM",
+    "THEME": "Theme",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "LANGUAGE": "Language"
   },
   "DEFAULT_ACTIVITIES": {
     "SLEEP": "Sleep",
@@ -28,7 +35,11 @@
     "RECOMMENDED_TIME": "Recommended duration per day",
     "RECOMMENDED_AMOUNT": "Recommended amount",
     "TIME_BASED": "Track activity in time",
-    "COUNT_BASED": "Track by counting"
+    "COUNT_BASED": "Track by counting",
+    "NOTIFICATIONS": "Enable notification if activity is not done",
+    "NOTIFICATION_TIME":"Time when send if not activity is not done",
+    "PICK_COLOR": "Pick a color for the activity",
+    "PICK_ICON": "Pick an icon for the activity"
   },
   "ACTIVITIES": {
     "TITLE": "Manage Activities",
@@ -44,6 +55,13 @@
     "DELETE_RECORD": "Are you sure you want to delete the record?",
     "M": "m.",
     "PER_DAY": "times per day",
-    "CAMERA_ACCESS_DENIED": "Camera or gallery access denied"
+    "CAMERA_ACCESS_DENIED": "Camera or gallery access denied",
+    "NOTIFICATIONS": "Notifications"
+  },
+  "NOTIFICATIONS": {
+    "REMINDER_TITLE": "Probably, it time to track",
+    "REMINDER_BODY":  "Looks like you forget to track the activity of your child!",
+    "ACTIVITY_REMINDER_TITLE": "{{name}} is not completed yet!",
+    "ACTIVITY_REMINDER_BODY": "Kind reminder to finish the {{name}} activity"
   }
 }
