@@ -30,7 +30,8 @@
         </ion-label>
         <div class="done-section" *ngIf="(activities$ | async)!.length as activitiesCount">
           <span>{{ doneCount$ | async}} / {{activitiesCount}}</span>
-          <div class="circle" [ngStyle]="{ '--progress': (((doneCount$ | async)! / activitiesCount!)! * 100) + '%' }">
+          <div class="circle" [ngStyle]="{ '--progress': (((doneCount$ | async)! / activitiesCount!)! * 100) + '%' }"
+         [class.complete]="((doneCount$ | async)! / activitiesCount!)!>=1"  >
             <div class="inner">
             </div>
           </div>

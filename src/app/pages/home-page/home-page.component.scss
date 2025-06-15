@@ -137,6 +137,10 @@
   position: relative;
 }
 
+.circle.complete {
+  --color: #22c55e; // зелёный при завершении
+}
+
 .inner {
   background: #111;
   border-radius: 50%;
